@@ -82,7 +82,8 @@ class NewsController extends Controller
         $required = [
             'title',
             'category_id',
-            'url',
+            'describe',
+            'content',
         ];
         // reference
         $reference = [];

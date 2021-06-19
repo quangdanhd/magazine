@@ -32,6 +32,7 @@ class NewsController extends Controller
             'url',
             'author_id',
             'new_of_category',
+            'newest',
         ];
         // default value
         $default_value = [];

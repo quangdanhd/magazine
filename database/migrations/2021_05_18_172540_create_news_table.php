@@ -21,6 +21,7 @@ class CreateNewsTable extends Migration
             $table->boolean('publish')->default(0);
             $table->integer('views')->default(0);
             $table->boolean('new_of_category')->default(0);
+            $table->boolean('newest')->default(0);
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
         });

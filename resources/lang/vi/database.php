@@ -18,4 +18,5 @@ return [
     'views' => 'Lượt xem',
     'describe' => 'Mô tả',
     'from_url' => 'From Url',
+    'newest' => 'Mới nhất',
 ];

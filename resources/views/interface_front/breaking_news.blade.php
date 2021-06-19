@@ -26,15 +26,15 @@
                                             <div class="social-share">
                                                 <ul>
                                                     <li>
-                                                        <a href="javascript:;" class="share">
+                                                        <a href="javascript:" class="share">
                                                             <i class="fa fa-share-alt"></i></a>
                                                     </li>
                                                     <li style="display: none;">
-                                                        <a href="javascript:;" title="share on facebook" class="def-cur-pointer facebook" onclick="fbpop()">
+                                                        <a href="javascript:" title="share on facebook" class="def-cur-pointer facebook" onclick="fbpop()">
                                                             <i class="fa fa-facebook"></i></a>
                                                     </li>
                                                     <li style="display: none;">
-                                                        <a href="javascript:;" title="share on twitter" class="user-activity twitter def-cur-pointer" rel="1" data-tag="homepage-breaking-news" data-activity="twitter_share" data-status="1" onclick="twitter_popup()">
+                                                        <a href="javascript:" title="share on twitter" class="user-activity twitter def-cur-pointer" rel="1" data-tag="homepage-breaking-news" data-activity="twitter_share" data-status="1" onclick="twitter_popup()">
                                                             <i class="fa fa-twitter"></i></a>
                                                     </li>
                                                 </ul>

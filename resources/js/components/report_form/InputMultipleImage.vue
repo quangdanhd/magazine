@@ -37,7 +37,7 @@
                     if (this.f_name in this.MultiImageNewUrl) {
                         arr = this.MultiImageNewUrl[this.f_name];
                     }
-                    arr.push(URL.createObjectURL(file))
+                    arr.push(URL.createObjectURL(file));
                     this.MultiImageNewUrl[this.f_name] = arr;
                     this.$forceUpdate();
                 } else {

@@ -7,6 +7,9 @@
         body {
             font-family: 'Nunito', sans-serif;
         }
+        #main {
+            min-height: 70vh;
+        }
     </style>
     <div class="antialiased">
         <div class="relative flex items-top justify-center dark:bg-gray-900 sm:items-center sm:pt-0">

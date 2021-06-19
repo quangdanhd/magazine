@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\ControllerUsers;
 use App\Models\news;
+use DomDocument;
 use DOMXPath;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +25,7 @@ class GetNewsController extends ControllerUsers
         if (!$check_db) {
             $content = $data['content'];
             // dom
-            $dom = new \DomDocument();
+            $dom = new DomDocument();
             @$dom->loadHTML($content);
             // xpath
             $xpath = new DOMXPath ($dom);

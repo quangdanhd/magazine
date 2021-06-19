@@ -1,3 +1,31 @@
+/*!
+ * Theia Sticky Sidebar v1.7.0
+ * https://github.com/WeCodePixels/theia-sticky-sidebar
+ *
+ * Glues your website's sidebars, making them permanently visible while scrolling.
+ *
+ * Copyright 2013-2016 WeCodePixels and other contributors
+ * Released under the MIT license
+ */
+
+/*!
+ * WPBakery Page Builder v6.0.0 (https://wpbakery.com)
+ * Copyright 2011-2020 Michael M, WPBakery
+ * License: Commercial. More details: http://go.wpbakery.com/licensing
+ */
+
+/*!
+ * imagesLoaded PACKAGED v3.2.0
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */
+
+/*! This file is auto-generated */
+
+/*! jQuery Migrate v1.4.1 | (c) jQuery Foundation and other contributors | jquery.org/license */
+
+/*! jQuery v1.12.4 | (c) jQuery Foundation | jquery.org/license | WordPress 2019-05-16 */
+
 /*! jQuery v1.7.2 jquery.com | jquery.org/license */
 
-/*! lazysizes - v4.0.2 */
+/*! npm.im/object-fit-images 3.2.4 */

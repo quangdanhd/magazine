@@ -11,7 +11,8 @@ class CreateNewsCategoryTable extends Migration
     {
         Schema::create('news_category', function (Blueprint $table) {
             $table->integer('type');
-            $table->string('name', 20);
+            $table->string('name', 100);
+            $table->string('link', 100)->nullable();
         });
         DB::table('news_category')->insert(
             array(

@@ -173,6 +173,7 @@ export default {
             'views': 'Lượt xem',
             'describe': 'Mô tả',
             'from_url': 'From Url',
+            'newest': 'Mới nhất',
         },
         "field_view": {},
         "message": {

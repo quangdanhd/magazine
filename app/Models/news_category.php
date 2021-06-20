@@ -22,14 +22,19 @@ class news_category extends Model implements Authenticatable
     {
         parent::boot();
         self::saved(function ($model) {
-            Cache::put('category-cached', (new \App\Models\news_category)->getCachedCategory());
+            Cache::put('category-cached', (new news_category)->getAll());
         });
+    }
+
+    public function getAll()
+    {
+        return $this->all()->sortBy('id');
     }
 
     public function getCachedCategory()
     {
         return Cache::rememberForever('category-cached', function () {
-            return $this->all()->sortBy('id');
+            return news_category::getAll();
         });
     }
 }

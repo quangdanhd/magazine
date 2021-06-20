@@ -85,6 +85,7 @@ class NewsController extends Controller
             'category_id',
             'describe',
             'content',
+            'image',
         ];
         // reference
         $reference = [];

@@ -51120,7 +51120,8 @@ var render = function() {
                 _vm._v(" "),
                 _vm.objData["field"][item] === _vm.config["image"] &&
                 ((item in _vm.ImageUrl && _vm.ImageUrl[item]) ||
-                  _vm.dataModel[item])
+                  _vm.dataModel[item]) &&
+                !_vm.objData["required"].includes(item)
                   ? _c("i", {
                       staticClass: "far fa-trash-alt remove-image",
                       on: {
@@ -51699,11 +51700,14 @@ var render = function() {
                       _c("input", {
                         ref: "file_upload_" + item,
                         refInFor: true,
+                        staticClass: "form-control-file",
                         attrs: {
                           type: "file",
                           name: item,
                           accept: "image/*",
-                          required: _vm.objData["required"].includes(item)
+                          required:
+                            Object.keys(_vm.record).length === 0 &&
+                            _vm.objData["required"].includes(item)
                         },
                         on: {
                           change: function($event) {

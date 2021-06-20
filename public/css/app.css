@@ -16824,6 +16824,12 @@ input::-webkit-inner-spin-button {
   filter: grayscale(100%);
 }
 
+.was-validated .form-control-file:invalid,
+.form-control-file.is-invalid {
+  border: 1px solid #e3342f;
+  border-radius: 0.2rem;
+}
+
 html, body {
   height: 100%;
 }

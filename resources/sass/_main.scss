@@ -666,3 +666,8 @@ input::-webkit-inner-spin-button {
         }
     }
 }
+.was-validated .form-control-file:invalid,
+.form-control-file.is-invalid {
+    border: 1px solid #e3342f;
+    border-radius: 0.2rem;
+}

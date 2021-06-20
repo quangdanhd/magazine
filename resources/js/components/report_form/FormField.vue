@@ -4,7 +4,7 @@
             <div v-if="objData['field'][item] === config['image'] || objData['field'][item] === config['view_image']" class="col-sm-12 mb-1 text-center image-preview position-relative">
                 <img v-if="item in ImageUrl && ImageUrl[item]" :src="ImageUrl[item]" alt="" class="img"/>
                 <img v-else-if="dataModel[item]" :src="dataModel[item]" @error="imageUrlAlt" alt="" class="img"/>
-                <i v-if="objData['field'][item] === config['image'] && ((item in ImageUrl && ImageUrl[item]) || dataModel[item])" @click="removeImage(item)" class="far fa-trash-alt remove-image"></i>
+                <i v-if="objData['field'][item] === config['image'] && ((item in ImageUrl && ImageUrl[item]) || dataModel[item]) && !objData['required'].includes(item)" @click="removeImage(item)" class="far fa-trash-alt remove-image"></i>
             </div>
             <label v-if="fieldShowCheck(item)" class="col-sm-4 col-form-label col-form-label-sm">
                 <span v-if="typeof objData['label'][item] !== 'undefined'">
@@ -114,7 +114,7 @@
                 </div>
                 <!--image-->
                 <label v-else-if="objData['field'][item] === config['image']" class="w-100 mb-0">
-                    <input @change="onImageChange($event, item)" :ref="'file_upload_' + item" type="file" :name="item" accept="image/*" :required="objData['required'].includes(item)">
+                    <input @change="onImageChange($event, item)" :ref="'file_upload_' + item" type="file" :name="item" accept="image/*" :required="Object.keys(record).length === 0 && objData['required'].includes(item)" class="form-control-file">
                 </label>
                 <!--view_image-->
                 <label v-else-if="objData['field'][item] === config['view_image']" class="w-100 mb-0">

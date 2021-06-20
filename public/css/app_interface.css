@@ -324,6 +324,10 @@
   margin-right: -15px;
 }
 
+.list-post-a .post-thumb {
+  width: 35.06494%;
+}
+
 @media (min-width: 768px) {
   .vc_col-sm-12 {
     width: 100%;
@@ -7102,10 +7106,6 @@ button, .button {
 
 .list-post:not(.list-post-b) .post-title {
   margin-top: 0;
-}
-
-.list-post-a .post-thumb {
-  width: 35.06494%;
 }
 
 .list-post-b .post-title {

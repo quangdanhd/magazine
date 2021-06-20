@@ -22,7 +22,7 @@ class news_category extends Model implements Authenticatable
     {
         parent::boot();
         self::saved(function ($model) {
-            Cache::put('category-cached', (new news_category)->getAll());
+            Cache::forget('category-cached');
         });
     }
 

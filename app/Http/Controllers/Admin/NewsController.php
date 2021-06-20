@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
@@ -151,14 +152,13 @@ class NewsController extends Controller
 
     public function create()
     {
-        $obj = reports_form_create_data($this->data_config());
-        return View::make('report/data_form')->with('obj', $obj);
+        return reports_form_create($this->data_config());
     }
 
     public function store(Request $request)
     {
         $requestData = $request->all();
-        $message = $this->this_validate('', $request);
+        $message = $this->this_validate();
         if ($message) {
             return [
                 'status' => 'error',
@@ -172,16 +172,14 @@ class NewsController extends Controller
 
     public function edit($id)
     {
-        $data = $this->data_config();
-        $obj = reports_form_edit_data($id, $data);
-        return View::make('report/data_form')->with('obj', $obj);
+        return reports_form_edit($id, $this->data_config());
     }
 
     public function update(Request $request)
     {
         $requestData = $request->all();
         $id = isset($requestData['formData']['id']) ? $requestData['formData']['id'] : '';
-        $message = $this->this_validate($id, $request);
+        $message = $this->this_validate();
         if ($message) {
             return [
                 'status' => 'error',
@@ -193,9 +191,36 @@ class NewsController extends Controller
         return $return;
     }
 
-    public function this_validate($id, $request)
+    public function this_validate()
     {
         $message = [];
+        $validator = Validator::make(
+            request()->all()['formData'],
+            [
+                'title' => [
+                    'required',
+                    'string',
+                    'max:250',
+                ],
+                'category_id' => [
+                    'required',
+                    'integer',
+                ],
+                'describe' => [
+                    'required',
+                ],
+                'content' => [
+                    'required',
+                ],
+            ],
+            [
+                'title.required' => 'Tiêu đề không được để trống.',
+                'title.max' => 'Tiêu đề không được vượt quá 250 ký tự.',
+            ]
+        );
+        if ($validator->fails()) {
+            $message[] = $validator->errors()->first();
+        }
         if ($message) {
             $message = '<br>' . join('<br>', $message);
         }

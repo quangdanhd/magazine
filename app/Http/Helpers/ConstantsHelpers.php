@@ -78,14 +78,15 @@ function generate_sample_data()
     if ($count > 1) {
         return 'Không sử dụng được tính năng tạo dữ liệu mẫu. Dữ liệu tin tức trong database có nhiều hơn 1 bản ghi!';
     }
-    $news = DB::table('news')->select('title', 'category_id', 'content', 'describe', 'image', 'publish', 'new_of_category')->orderBy('id', 'desc')->first();
+    $news = DB::table('news')->select('title', 'category_id', 'content', 'describe', 'image', 'publish', 'new_of_category', 'url')->orderBy('id', 'desc')->first();
     if ($news) {
         $data = (array)$news;
-        $category = DB::table('news_category')->orderBy('type', 'asc')->pluck('type')->toArray();
+        $category = DB::table('news_category')->orderBy('id', 'asc')->pluck('id')->toArray();
         foreach ($category as $key => $value) {
             $new_data = $data;
             $new_data['category_id'] = $value;
             for ($i = 0; $i <= 4; $i++) {
+                $new_data['url'] = $data['url'] . '-' . $key . '-' . $i;
                 news::create($new_data);
             }
         }

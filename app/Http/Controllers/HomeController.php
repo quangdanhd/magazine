@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\home_layouts;
+use App\Models\news_category;
 use App\Models\news_view;
 use Illuminate\Support\Facades\DB;
 
@@ -9,8 +11,39 @@ class HomeController extends ControllerUsers
 {
     public function index()
     {
-//        $obj = menu_category();
-//        $obj['title'] = 'Magazine';
+        // $obj = menu_category();
+        $obj['title'] = 'Magazine';
+        // Positions
+        $positions = config('constants.home_positions');
+        $position_keys = array_keys($positions);
+        // Category
+        $category_db = (new news_category)->getCachedCategory()->toArray();
+        $category = [];
+        foreach ($category_db as $key => $value) {
+            $category[$value['id']] = [
+                'name' => $value['name'],
+                'url' => $value['url'],
+            ];
+        }
+        $obj['category'] = $category;
+        // Layouts
+        $layout_db = (new home_layouts)->getCachedHomeLayouts()->toArray();
+        $layout_category = [];
+        foreach ($layout_db as $key => $value) {
+            if (in_array($value['position'], $position_keys)) {
+                $layout_category[] = $value['category_id'];
+            }
+        }
+        $home_data = DB::table('news')->select('id', 'title', 'category_id', 'describe', 'url', 'image', 'new_of_category', 'newest', 'created_at')->where('new_of_category', 1)->where('newest', 1)->whereIn('category_id', $layout_category)->where('publish', 1)->orderBy('id', 'desc')->get();
+        // dd($home_data);
+        $feat = [];
+        foreach ($home_data as $key => $value) {
+            $arr = (array)$value;
+            if (!!$arr['newest']) {
+                $feat[] = $arr;
+            }
+        }
+        $obj['feat'] = $feat;
 //        // Recent
 //        $take = 3;
 //        $newest_db = DB::table('news')->select('id', 'url', 'title', 'image')->where('publish', 1)->orderBy('id', 'desc')->take($take)->get();

@@ -21,21 +21,6 @@ class news extends Model implements Authenticatable
     public static function boot()
     {
         parent::boot();
-        self::creating(function ($model) {
-            // Url
-            $url = trim($model->title);
-            $url = convert_name($url);
-            $url = strtolower($url);
-            // Removes special chars.
-            $url = preg_replace('/[^A-Za-z0-9\s]/', '', $url);
-            $url = preg_replace('/\s+/', '-', $url);
-            // Check url
-            $check = DB::table('news')->select('id')->where('url', $url)->first();
-            if ($check) {
-                $url .= date('Ymd') . '-' . time();
-            }
-            $model->url = $url;
-        });
         self::saving(function ($model) {
             $category_id = $model->category_id;
             // new_of_category
@@ -46,6 +31,25 @@ class news extends Model implements Authenticatable
             $take = 6;
             DB::table('news')->where('publish', 1)->where('newest', 1)->update(['newest' => 0]);
             DB::table('news')->where('publish', 1)->orderBy('id', 'desc')->take($take)->update(['newest' => 1]);
+            // Url
+            $url = trim($model->title);
+            $url = convert_name($url);
+            $url = strtolower($url);
+            // Removes special chars.
+            $url = preg_replace('/[^A-Za-z0-9\s]/', '', $url);
+            $url = preg_replace('/\s+/', '-', $url);
+            // Check url
+            $check = DB::table('news')->select('id')->where('url', $url)->first();
+            if ($check) {
+                $created_at = $model->created_at;
+                if (!$created_at) {
+                    $date = date('Ymd-His');
+                } else {
+                    $date = $model->created_at->format('m/d/Y');
+                }
+                $url .= '-' . $date;
+            }
+            $model->url = $url;
             if (!$model->id && !!$model->publish) {
                 $model->new_of_category = 1;
                 $model->newest = 1;

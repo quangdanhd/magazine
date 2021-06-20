@@ -19,4 +19,8 @@ return [
     'describe' => 'Mô tả',
     'from_url' => 'From Url',
     'newest' => 'Mới nhất',
+    'list_news_category' => 'Quản lý danh mục',
+    'name' => 'Tên',
+    'create_news_category' => 'Tạo mới danh mục',
+    'edit_news_category' => 'Sửa danh mục',
 ];

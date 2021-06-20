@@ -9,72 +9,26 @@ class CreateNewsCategoryTable extends Migration
 {
     public function up()
     {
+        Schema::dropIfExists('news_category');
         Schema::create('news_category', function (Blueprint $table) {
-            $table->integer('type');
+            $table->bigIncrements('id');
             $table->string('name', 100);
-            $table->string('link', 100)->nullable();
+            $table->string('url', 100);
+            $table->timestamps();
         });
         DB::table('news_category')->insert(
             array(
                 [
-                    'type' => '1',
                     'name' => 'MOVIES',
+                    'url' => 'movies',
                 ],
                 [
-                    'type' => '2',
                     'name' => 'SPORTS',
+                    'url' => 'sports',
                 ],
                 [
-                    'type' => '3',
                     'name' => 'TECHNOLOGY',
-                ],
-                [
-                    'type' => '4',
-                    'name' => 'LIFESTYLE',
-                ],
-                [
-                    'type' => '5',
-                    'name' => 'TRENDING',
-                ],
-                [
-                    'type' => '6',
-                    'name' => 'MAGAZINE',
-                ],
-                [
-                    'type' => '7',
-                    'name' => 'INDIA',
-                ],
-                [
-                    'type' => '8',
-                    'name' => 'TELEVISION',
-                ],
-                [
-                    'type' => '9',
-                    'name' => 'BUSINESS',
-                ],
-                [
-                    'type' => '10',
-                    'name' => 'SCIENCE',
-                ],
-                [
-                    'type' => '11',
-                    'name' => 'EDUCATION',
-                ],
-                [
-                    'type' => '12',
-                    'name' => 'CITIES',
-                ],
-                [
-                    'type' => '13',
-                    'name' => 'AUTO',
-                ],
-                [
-                    'type' => '14',
-                    'name' => 'WORLD',
-                ],
-                [
-                    'type' => '15',
-                    'name' => 'OTHERS',
+                    'url' => 'technology',
                 ],
             )
         );

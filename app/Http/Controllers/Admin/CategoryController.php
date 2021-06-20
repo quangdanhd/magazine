@@ -8,32 +8,21 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 
-class NewsController extends Controller
+class CategoryController extends Controller
 {
     public function data_config()
     {
         // table_name
-        $table_name = 'news';
+        $table_name = 'news_category';
         // PrimaryKey
         $primaryKey = 'id';
         // filed
         $field = [
-            'title' => config_field('text'),
-            'category_id' => config_field('select'),
-            'content' => config_field('tiny_mce'),
-            'describe' => config_field('textarea'),
-            'image' => config_field('image'),
-            'publish' => config_field('boolean'),
+            'name' => config_field('text'),
+            'url' => config_field('text'),
         ];
         // hidden column
-        $hidden_column = [
-            'content',
-            'image',
-            'url',
-            'author_id',
-            'new_of_category',
-            'newest',
-        ];
+        $hidden_column = [];
         // default value
         $default_value = [];
         // label
@@ -45,28 +34,24 @@ class NewsController extends Controller
                 'items' => [
                     0 => [
                         'type' => 'div',
-                        'class' => 'col-md-12 col-lg-5',
+                        'class' => 'col-md-12 col-lg-7',
                         'items' => [
                             0 => [
                                 'type' => 'field',
                                 'items' => [
-                                    'title',
-                                    'category_id',
-                                    'describe',
-                                    'publish',
-                                    'image',
+                                    'name',
+                                    'url',
                                 ],
                             ]
                         ],
                     ],
                     1 => [
                         'type' => 'div',
-                        'class' => 'col-md-12 col-lg-7',
+                        'class' => 'col-md-12 col-lg-5',
                         'items' => [
                             0 => [
                                 'type' => 'field',
                                 'items' => [
-                                    'content',
                                 ]
                             ],
                         ]
@@ -75,15 +60,11 @@ class NewsController extends Controller
             ],
         ];
         // select field
-        $select = [
-            'category_id' => (new \App\Models\news_category)->getCachedCategory()->pluck('name', 'id'),
-        ];
+        $select = [];
         // required
         $required = [
-            'title',
-            'category_id',
-            'describe',
-            'content',
+            'name',
+            'url',
         ];
         // reference
         $reference = [];
@@ -121,7 +102,7 @@ class NewsController extends Controller
 
     public function index_filter()
     {
-        return config_search_popup('news_id');
+        return config_search_popup('news_category_id');
     }
 
     public function search_popup()
@@ -151,73 +132,55 @@ class NewsController extends Controller
 
     public function create()
     {
-        $obj = reports_form_create_data($this->data_config());
-        return View::make('report/data_form')->with('obj', $obj);
+        return reports_form_create($this->data_config());
     }
 
     public function store(Request $request)
     {
         $requestData = $request->all();
-        $message = $this->this_validate('', $request);
+        $message = $this->this_validate();
         if ($message) {
             return [
                 'status' => 'error',
                 'message' => $message,
             ];
         }
-        $this->this_image($requestData);
         $return = reports_form_store($this->data_config(), $requestData);
         return $return;
     }
 
     public function edit($id)
     {
-        $data = $this->data_config();
-        $obj = reports_form_edit_data($id, $data);
-        return View::make('report/data_form')->with('obj', $obj);
+        return reports_form_edit($id, $this->data_config());
     }
 
     public function update(Request $request)
     {
         $requestData = $request->all();
-        $id = isset($requestData['formData']['id']) ? $requestData['formData']['id'] : '';
-        $message = $this->this_validate($id, $request);
+        $message = $this->this_validate();
         if ($message) {
             return [
                 'status' => 'error',
                 'message' => $message,
             ];
         }
-        $this->this_image($requestData);
         $return = reports_form_update($this->data_config(), $requestData);
         return $return;
     }
 
-    public function this_validate($id, $request)
+    public function this_validate()
     {
+        $request = request()->all();
         $message = [];
+        $id = isset($request['formData']['id']) ? $request['formData']['id'] : '';
+        $url = isset($request['formData']['url']) ? $request['formData']['url'] : '';
+        $check_url = DB::table('news_category')->select('id')->where('url', $url)->where('id', '!=', $id)->first();
+        if ($check_url) {
+            $message[] = 'Danh mục không được để url trùng nhau!';
+        }
         if ($message) {
             $message = '<br>' . join('<br>', $message);
         }
         return $message;
-    }
-
-    public function this_image(&$requestData)
-    {
-        $image = isset($requestData['dataImage']['image']) ? $requestData['dataImage']['image'] : '';
-        if ($image) {
-            $name = get_name_image_upload($image);
-            \Image::make($image)->save(public_path('images/news/') . $name);
-            \Image::make($image)->fit(370, 208)->save(public_path('images/news_370x208/' . $name));
-            \Image::make($image)->fit(237, 133)->save(public_path('images/news_237x133/' . $name));
-            $path = '/images/news_370x208/' . $name;
-            $requestData['formData']['image'] = $path;
-        }
-    }
-
-    public function generate()
-    {
-        $mes = generate_sample_data();
-        return View::make('generate')->with('mes', $mes);
     }
 }

@@ -9,83 +9,84 @@ class HomeController extends ControllerUsers
 {
     public function index()
     {
-        $obj = menu_category();
+//        $obj = menu_category();
+//        $obj['title'] = 'Magazine';
+//        // Recent
+//        $take = 3;
+//        $newest_db = DB::table('news')->select('id', 'url', 'title', 'image')->where('publish', 1)->orderBy('id', 'desc')->take($take)->get();
+//        $newest = [];
+//        $newest_id = [];
+//        foreach ($newest_db as $key => $value) {
+//            $arr = (array)$value;
+//            if (!!$key) {
+//                $arr['image'] = str_replace('news_370x208', 'news_237x133', $arr['image']);
+//            }
+//            $newest[] = $arr;
+//            $newest_id[] = $arr['id'];
+//        }
+//        $obj['newest'] = $newest;
+//        // Top
+//        $take = 10;
+//        $top_db = get_top_news();
+//        $top_db = $top_db->select('id', 'url', 'title')->whereNotIn('id', $newest_id)->take($take)->get();
+//        $obj['top'] = $top_db;
+//        // OTHER
+//        $category_name = [
+//            [
+//                'movies',
+//                'sports',
+//                'technology',
+//                'lifestyle',
+//                'trending',
+//                'india',
+//            ],
+//            [
+//                'magazine',
+//            ],
+//            [
+//                'television',
+//                'business',
+//            ],
+//            [
+//                'science',
+//                'education',
+//                'cities',
+//                'auto',
+//                'world',
+//                'others',
+//            ]
+//        ];
+//        $category = [];
+//        $others_data = [];
+//        foreach ($category_name as $key => $value) {
+//            foreach ($value as $k_2 => $val_2) {
+//                $category_id = config('constants.news_category.' . $val_2);
+//                $category[] = $category_id;
+//                $others_data[$key][$category_id] = [];
+//            }
+//        }
+//        $others_db = DB::table('news')->select('id', 'category_id', 'name', 'url', 'title', 'image')->leftJoin('news_category', 'category_id', 'id')->where('new_of_category', 1)->where('publish', 1)->whereIn('category_id', $category)->orderBy('id', 'desc')->get();
+//        $arr_0 = array_keys($others_data[0]);
+//        $arr_1 = array_keys($others_data[1]);
+//        $arr_2 = array_keys($others_data[2]);
+//        $arr_3 = array_keys($others_data[3]);
+//        foreach ($others_db as $key => $value) {
+//            $arr = (array)$value;
+//            if (in_array($arr['category_id'], $arr_0)) {
+//                $others_data[0][$arr['category_id']][] = $arr;
+//            }
+//            if (in_array($arr['category_id'], $arr_1)) {
+//                $others_data[1][$arr['category_id']][] = $arr;
+//            }
+//            if (in_array($arr['category_id'], $arr_2)) {
+//                $others_data[2][$arr['category_id']][] = $arr;
+//            }
+//            if (in_array($arr['category_id'], $arr_3)) {
+//                $others_data[3][$arr['category_id']][] = $arr;
+//            }
+//        }
+//        $obj['others'] = $others_data;
         $obj['title'] = 'Magazine';
-        // Recent
-        $take = 3;
-        $newest_db = DB::table('news')->select('id', 'url', 'title', 'image')->where('publish', 1)->orderBy('id', 'desc')->take($take)->get();
-        $newest = [];
-        $newest_id = [];
-        foreach ($newest_db as $key => $value) {
-            $arr = (array)$value;
-            if (!!$key) {
-                $arr['image'] = str_replace('news_370x208', 'news_237x133', $arr['image']);
-            }
-            $newest[] = $arr;
-            $newest_id[] = $arr['id'];
-        }
-        $obj['newest'] = $newest;
-        // Top
-        $take = 10;
-        $top_db = get_top_news();
-        $top_db = $top_db->select('id', 'url', 'title')->whereNotIn('id', $newest_id)->take($take)->get();
-        $obj['top'] = $top_db;
-        // OTHER
-        $category_name = [
-            [
-                'movies',
-                'sports',
-                'technology',
-                'lifestyle',
-                'trending',
-                'india',
-            ],
-            [
-                'magazine',
-            ],
-            [
-                'television',
-                'business',
-            ],
-            [
-                'science',
-                'education',
-                'cities',
-                'auto',
-                'world',
-                'others',
-            ]
-        ];
-        $category = [];
-        $others_data = [];
-        foreach ($category_name as $key => $value) {
-            foreach ($value as $k_2 => $val_2) {
-                $category_id = config('constants.news_category.' . $val_2);
-                $category[] = $category_id;
-                $others_data[$key][$category_id] = [];
-            }
-        }
-        $others_db = DB::table('news')->select('id', 'category_id', 'name', 'url', 'title', 'image')->leftJoin('news_category', 'category_id', 'type')->where('new_of_category', 1)->where('publish', 1)->whereIn('category_id', $category)->orderBy('id', 'desc')->get();
-        $arr_0 = array_keys($others_data[0]);
-        $arr_1 = array_keys($others_data[1]);
-        $arr_2 = array_keys($others_data[2]);
-        $arr_3 = array_keys($others_data[3]);
-        foreach ($others_db as $key => $value) {
-            $arr = (array)$value;
-            if (in_array($arr['category_id'], $arr_0)) {
-                $others_data[0][$arr['category_id']][] = $arr;
-            }
-            if (in_array($arr['category_id'], $arr_1)) {
-                $others_data[1][$arr['category_id']][] = $arr;
-            }
-            if (in_array($arr['category_id'], $arr_2)) {
-                $others_data[2][$arr['category_id']][] = $arr;
-            }
-            if (in_array($arr['category_id'], $arr_3)) {
-                $others_data[3][$arr['category_id']][] = $arr;
-            }
-        }
-        $obj['others'] = $others_data;
         return view('home')->with('obj', $obj);
     }
 
@@ -107,14 +108,14 @@ class HomeController extends ControllerUsers
     public function category($url)
     {
         $obj = menu_category();
-        $category = DB::table('news_category')->select('type')->where('name', $url)->first();
+        $category = DB::table('news_category')->select('id')->where('name', $url)->first();
         if ($category) {
             $obj['title'] = ucfirst($url);
             // List
             $take = 20;
-            $list = DB::table('news')->select('id', 'title', 'describe', 'image', 'url')->where('category_id', $category->type)->where('publish', 1)->paginate($take);
+            $list = DB::table('news')->select('id', 'title', 'describe', 'image', 'url')->where('category_id', $category->id)->where('publish', 1)->paginate($take);
             $obj['list'] = $list;
-            $this->aside_data($obj, $category->type);
+            $this->aside_data($obj, $category->id);
             return view('category')->with('obj', $obj);
         }
         $obj['title'] = '404 | Not Found';

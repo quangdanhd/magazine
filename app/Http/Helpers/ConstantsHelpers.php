@@ -62,7 +62,7 @@ function session_client_ip()
 function menu_category()
 {
     // Category
-    $category_db = DB::table('news_category')->select('type', 'name')->orderBy('type', 'asc')->pluck('name', 'type')->toArray();
+    $category_db = DB::table('news_category')->select('id', 'name')->orderBy('id', 'asc')->pluck('name', 'id')->toArray();
     $obj['category'] = $category_db;
     $obj['category_show'] = 9;
     return $obj;
@@ -151,7 +151,7 @@ function config_search_popup($key)
                 'created_at' . explode_filter() . 'from' => '>=',
             ],
             'select' => [
-                'category_id' => DB::table('news_category')->pluck('name', 'type'),
+                'category_id' => (new \App\Models\news_category)->getCachedCategory()->pluck('name', 'id'),
                 'publish' => [
                     '0' => 'no',
                     '1' => 'yes',
@@ -160,6 +160,25 @@ function config_search_popup($key)
             'default_search' => [
                 'publish' => '1',
             ],
+            'hidden_column' => []
+        ];
+    }
+    if ($key == 'news_category_id') {
+        return [
+            'search_table' => 'news_category',
+            'primaryKey' => 'id',
+            'search_filter' => [
+                'name' => config_field('text'),
+                'url' => config_field('text'),
+            ],
+            'search_autofill' => [
+                'news_category_id' => 'id',
+            ],
+            'join' => [],
+            'field_join' => [],
+            'query' => [],
+            'select' => [],
+            'default_search' => [],
             'hidden_column' => []
         ];
     }

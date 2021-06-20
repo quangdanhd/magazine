@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\GetNewsController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\HomeLayoutsController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DataSearch\DataFormIndexSearch;
@@ -23,16 +24,22 @@ Route::group(['namespace' => 'DataSearch'], function () {
 Route::group(['namespace' => 'Admin'], function () {
     Route::get('/admin', [HomeController::class, 'index'])->name('home');
     // News
-    Route::resource('admin-news', '\App\Http\Controllers\Admin\NewsController', [
+    Route::resource('news-manage', '\App\Http\Controllers\Admin\NewsController', [
         'only' => ['index', 'create', 'store', 'edit', 'update']
     ]);
+    // Category
+    Route::resource('category-manage', '\App\Http\Controllers\Admin\CategoryController', [
+        'only' => ['index', 'create', 'store', 'edit', 'update']
+    ]);
+    // Home layouts
+    Route::any('/home-layouts', [HomeLayoutsController::class, 'index']);
     // User
     //Route::resource('users', '\App\Http\Controllers\UserController', [
     //    'only' => ['index', 'create', 'store', 'edit', 'update']
     //]);
     // generate_sample_data
     Route::get('/generate-sample-data', [NewsController::class, 'generate']);
-    // Get news
+    // Get news form url ***
     Route::post('get-news-from-url', [GetNewsController::class, 'create_news']);
     Route::get('get-news-category', [GetNewsController::class, 'category']);
 });

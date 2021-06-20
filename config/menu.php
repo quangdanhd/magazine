@@ -13,8 +13,16 @@ return [
                     'link' => '/admin'
                 ],
                 [
-                    'label' => 'News',
-                    'link' => '/admin-news'
+                    'label' => 'News Manage',
+                    'link' => '/news-manage'
+                ],
+                [
+                    'label' => 'Category Manage',
+                    'link' => '/category-manage'
+                ],
+                [
+                    'label' => 'Home Layouts',
+                    'link' => '/home-layouts'
                 ],
             ]
         ],

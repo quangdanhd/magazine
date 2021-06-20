@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class news extends Model implements Authenticatable
@@ -65,5 +66,39 @@ class news extends Model implements Authenticatable
     public function news_top()
     {
         return $this->orderBy('views', 'desc');
+    }
+
+    public function getNewsPopularFrom($from = '')
+    {
+        $return = $this->all('title', 'image', 'url', 'created_at');
+        if (!!$from) {
+            $return = $return->where('created_at', '>=', $from);
+        }
+        return $return->sortByDesc('view')->take(5);
+    }
+
+    public function getCachedNewsPopular()
+    {
+        $cache_key = 'news-popular-from-date';
+        $popular = Cache::get($cache_key);
+        if (!$popular) {
+            // one day (cache 30 minutes)
+            $seconds = 30 * 60;
+            $from = date('Y-m-d H:i:s', strtotime('-1 days'));
+            $get_popular = (new news)->getNewsPopularFrom($from);
+            if ($get_popular->isEmpty()) {
+                // one weeks (cache 1 day)
+                $seconds = 1 * 24 * 60 * 60;
+                $from = date('Y-m-d H:i:s', strtotime('-7 days'));
+                $get_popular = (new news)->getNewsPopularFrom($from);
+                if ($get_popular->isEmpty()) {
+                    // all (cache 1 day)
+                    $get_popular = (new news)->getNewsPopularFrom();
+                }
+            }
+            Cache::add($cache_key, $get_popular, $seconds);
+            $popular = Cache::get($cache_key);
+        }
+        return $popular;
     }
 }

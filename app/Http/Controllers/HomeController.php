@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\home_layouts;
+use App\Models\news;
 use App\Models\news_category;
 use App\Models\news_view;
 use Illuminate\Support\Facades\DB;
@@ -73,6 +74,9 @@ class HomeController extends ControllerUsers
         $obj['position_3'] = $position_3;
         $obj['position_4'] = $position_4;
         $obj['position_5'] = $position_5;
+        // Popular
+        $popular = (new news)->getCachedNewsPopular()->toArray();
+        $obj['popular'] = $popular;
         return view('home')->with('obj', $obj);
     }
 

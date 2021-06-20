@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
@@ -233,10 +232,9 @@ class NewsController extends Controller
         $image = isset($requestData['dataImage']['image']) ? $requestData['dataImage']['image'] : '';
         if ($image) {
             $name = get_name_image_upload($image);
-            \Image::make($image)->save(public_path('images/news/') . $name);
-            \Image::make($image)->fit(370, 208)->save(public_path('images/news_370x208/' . $name));
-            \Image::make($image)->fit(237, 133)->save(public_path('images/news_237x133/' . $name));
-            $path = '/images/news_370x208/' . $name;
+            Image::make($image)->save(public_path('images/news/') . $name);
+            Image::make($image)->fit(450, 300)->save(public_path('images/news_450x300' . $name));
+            $path = '/images/news_450x300/' . $name;
             $requestData['formData']['image'] = $path;
         }
     }

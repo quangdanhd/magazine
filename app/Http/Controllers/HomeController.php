@@ -48,6 +48,7 @@ class HomeController extends ControllerUsers
             $arr = (array)$value;
             // Newest
             if (!!$arr['newest']) {
+                $arr['image'] = str_replace('news_450x300', 'news', $arr['image']);
                 $feat[] = $arr;
             }
             if ($layout_category[0] == $arr['category_id']) {

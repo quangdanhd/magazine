@@ -6115,4 +6115,7 @@ button, .button {
         display: none;
     }
 }
-
+.tsi-spin {
+    -webkit-animation: tsi-spin 2s infinite linear;
+    animation: tsi-spin 2s infinite linear;
+}

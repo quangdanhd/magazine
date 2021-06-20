@@ -14,19 +14,7 @@
     <header id="main-head" class="main-head head-nav-below compact has-search-modal" style="min-height: 126px;">
         @include('interface_layouts.header')
     </header>
-    <div class="widget-a-wrap">
-        <div class="the-wrap head">
-            <div class="show-lg">
-                <img src="{{asset('/img/ads_lg.jpg')}}" alt="Ad">
-            </div>
-            <div class="show-sm show-md">
-                <img src="{{asset('/img/ads_md.jpg')}}" alt="Ad">
-            </div>
-            <div class="show-xs show-ty">
-                <img src="{{asset('/img/ads_ty.jpg')}}" alt="Ad">
-            </div>
-        </div>
-    </div>
+    @include('interface_layouts.ads_wrap', ['class' => ' head'])
     <main id="main" class="container">
         @yield('content')
     </main>

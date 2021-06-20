@@ -31,19 +31,47 @@ class HomeController extends ControllerUsers
         $layout_category = [];
         foreach ($layout_db as $key => $value) {
             if (in_array($value['position'], $position_keys)) {
-                $layout_category[] = $value['category_id'];
+                $layout_category[$value['position']] = $value['category_id'];
             }
         }
-        $home_data = DB::table('news')->select('id', 'title', 'category_id', 'describe', 'url', 'image', 'new_of_category', 'newest', 'created_at')->where('new_of_category', 1)->where('newest', 1)->whereIn('category_id', $layout_category)->where('publish', 1)->orderBy('id', 'desc')->get();
-        // dd($home_data);
+        // Home data
+        $home_data = DB::table('news')->select('id', 'title', 'category_id', 'describe', 'url', 'image', 'newest', 'created_at')->where(function ($query) {
+            $query->where('new_of_category', 1)->orWhere('newest', 1);
+        })->whereIn('category_id', array_values($layout_category))->where('publish', 1)->orderBy('id', 'desc')->get();
         $feat = [];
+        $position_1 = [];
+        $position_2 = [];
+        $position_3 = [];
+        $position_4 = [];
+        $position_5 = [];
         foreach ($home_data as $key => $value) {
             $arr = (array)$value;
+            // Newest
             if (!!$arr['newest']) {
                 $feat[] = $arr;
             }
+            if ($layout_category[0] == $arr['category_id']) {
+                $position_1[] = $arr;
+            }
+            if ($layout_category[1] == $arr['category_id']) {
+                $position_2[] = $arr;
+            }
+            if ($layout_category[2] == $arr['category_id']) {
+                $position_3[] = $arr;
+            }
+            if ($layout_category[3] == $arr['category_id']) {
+                $position_4[] = $arr;
+            }
+            if ($layout_category[4] == $arr['category_id']) {
+                $position_5[] = $arr;
+            }
         }
         $obj['feat'] = $feat;
+        $obj['position_1'] = $position_1;
+        $obj['position_2'] = $position_2;
+        $obj['position_3'] = $position_3;
+        $obj['position_4'] = $position_4;
+        $obj['position_5'] = $position_5;
 //        // Recent
 //        $take = 3;
 //        $newest_db = DB::table('news')->select('id', 'url', 'title', 'image')->where('publish', 1)->orderBy('id', 'desc')->take($take)->get();

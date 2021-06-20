@@ -3616,7 +3616,8 @@ body {
   text-transform: inherit;
 }
 
-.post-meta-c .post-author > a {
+.post-meta-c .post-author > a,
+.post-meta-c .post-author .author {
   color: var(--main-color);
   font-weight: 600;
 }

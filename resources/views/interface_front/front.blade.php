@@ -2,128 +2,16 @@
 <div class="main wrap" style="transform: none;">
     <div class="ts-row cf" style="transform: none;">
         <div class="col-8 main-content cf" style="transform: none;">
-            <div id="post-853" data-id="853" class="the-post the-page page-content" style="transform: none;">
+            <div class="the-post the-page page-content" style="transform: none;">
                 <div class="ts-row blocks cf wpb_row">
-                    <div class="wpb_column vc_column_container vc_col-sm-12 col-12">
-                        <div class="vc_column-inner">
-                            <div class="wpb_wrapper">
-                                <section class="cf block blog" data-id="p-1">
-                                    <div class="block-head block-head-b">
-                                        <h4 class="title">
-                                            <a href="#">Travel</a>
-                                        </h4>
-                                        <a href="#" class="view-all">View All</a>
-                                    </div>
-                                    <div class="block-content">
-                                        <div class="posts-dynamic posts-container ts-row grid count-0 has-grid-3">
-                                            <div class="posts-wrap">
-                                                <div class="column col-4">
-                                                    <article id="post-356" class="grid-post post-356 post type-post status-publish format-standard has-post-thumbnail category-travel-2 tag-beauty tag-fashion tag-lifestyle has-excerpt grid-post-c3 grid-post-a">
-                                                        <div class="post-thumb">
-                                                            <a href="#" class="image-link media-ratio ratio-3-2">
-                                                                <span data-bgsrc="https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-768x512.jpg" class="img bg-cover wp-post-image attachment-cheerup-768 size-cheerup-768 lazyloaded" role="img" data-bgset="https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-768x512.jpg 768w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-300x200.jpg 300w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-1024x683.jpg 1024w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-1536x1024.jpg 1536w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-2048x1365.jpg 2048w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-175x117.jpg 175w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-450x300.jpg 450w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-1170x780.jpg 1170w" data-sizes="(max-width: 370px) 100vw, 370px" title="Amazing Things You May Have Missed Growing up" style="background-image: url(&quot;https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2016/05/photo-1470985166016-a7d53763cee7-450x300.jpg&quot;);"></span>
-                                                            </a>
-                                                            <span class="cat-label cf"><a href="#" class="category" rel="category">Travel</a></span>
-                                                        </div>
-                                                        <div class="meta-title">
-                                                            <div class="post-meta post-meta-c post-meta-left has-below">
-                                                                <h2 class="is-title post-title-alt">
-                                                                    <a href="#">Amazing Things You May Have Missed Growing up</a>
-                                                                </h2>
-                                                                <div class="below meta-below">
-                                                                    <span class="meta-item post-author"><span class="by">By</span> <a href="#" title="Posts by Shane Doe" rel="author">Shane Doe</a></span>
-                                                                    <span class="meta-sep"></span>
-                                                                    <a href="#" class="meta-item date-link">
-                                                                        <time class="post-date" datetime="2016-05-14T13:09:16+00:00">May 14, 2016</time>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post-content post-excerpt cf">
-                                                            <p>More off this less hello salamander lied porpoise much over tightly circa horse taped so innocuously outside crud mightily rigorous…</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="column col-4">
-                                                    <article id="post-374" class="grid-post post-374 post type-post status-publish format-standard has-post-thumbnail category-travel-2 tag-diy tag-fashion tag-featured has-excerpt grid-post-c3 grid-post-a">
-                                                        <div class="post-thumb">
-                                                            <a href="#" class="image-link media-ratio ratio-3-2">
-                                                                <span data-bgsrc="https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-768x512.jpg" class="img bg-cover wp-post-image attachment-cheerup-768 size-cheerup-768 lazyloaded" role="img" data-bgset="https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-768x512.jpg 768w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-300x200.jpg 300w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-1024x683.jpg 1024w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-1536x1024.jpg 1536w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-2048x1365.jpg 2048w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-175x117.jpg 175w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-450x300.jpg 450w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-1170x780.jpg 1170w" data-sizes="(max-width: 370px) 100vw, 370px" title="Epic Ride: Family Backpacking in Costa Rica" style="background-image: url(&quot;https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_521261641-1-450x300.jpg&quot;);"></span>
-                                                            </a>
-                                                            <span class="cat-label cf"><a href="#" class="category" rel="category">Travel</a></span>
-                                                        </div>
-                                                        <div class="meta-title">
-                                                            <div class="post-meta post-meta-c post-meta-left has-below">
-                                                                <h2 class="is-title post-title-alt">
-                                                                    <a href="#">Epic Ride: Family Backpacking in Costa Rica</a>
-                                                                </h2>
-                                                                <div class="below meta-below">
-                                                                    <span class="meta-item post-author"><span class="by">By</span> <a href="#" title="Posts by Shane Doe" rel="author">Shane Doe</a></span>
-                                                                    <span class="meta-sep"></span>
-                                                                    <a href="#" class="meta-item date-link">
-                                                                        <time class="post-date" datetime="2016-05-14T13:08:10+00:00">May 14, 2016</time>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post-content post-excerpt cf">
-                                                            <p>More off this less hello salamander lied porpoise much over tightly circa horse taped so innocuously outside crud mightily rigorous…</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="column col-4">
-                                                    <article id="post-376" class="grid-post post-376 post type-post status-publish format-standard has-post-thumbnail category-travel-2 tag-diy tag-fashion tag-featured has-excerpt grid-post-c3 grid-post-a">
-                                                        <div class="post-thumb">
-                                                            <a href="#" class="image-link media-ratio ratio-3-2">
-                                                                <span data-bgsrc="https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-768x521.jpg" class="img bg-cover wp-post-image attachment-cheerup-768 size-cheerup-768 lazyloaded" role="img" data-bgset="https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-768x521.jpg 768w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-300x204.jpg 300w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-1024x695.jpg 1024w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-1536x1042.jpg 1536w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-2048x1389.jpg 2048w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-175x119.jpg 175w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-450x305.jpg 450w, https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-1170x794.jpg 1170w" data-sizes="(max-width: 370px) 100vw, 370px" title="Buildings Light up as The Night Approaches" style="background-image: url(&quot;https://cheerup.theme-sphere.com/magazine/wp-content/uploads/sites/7/2017/03/shutterstock_508830202-450x305.jpg&quot;);"></span>
-                                                            </a>
-                                                            <span class="cat-label cf"><a href="#" class="category" rel="category">Travel</a></span>
-                                                        </div>
-                                                        <div class="meta-title">
-                                                            <div class="post-meta post-meta-c post-meta-left has-below">
-                                                                <h2 class="is-title post-title-alt">
-                                                                    <a href="#">Buildings Light up as The Night Approaches</a>
-                                                                </h2>
-                                                                <div class="below meta-below">
-                                                                    <span class="meta-item post-author"><span class="by">By</span> <a href="#" title="Posts by Shane Doe" rel="author">Shane Doe</a></span>
-                                                                    <span class="meta-sep"></span>
-                                                                    <a href="#" class="meta-item date-link">
-                                                                        <time class="post-date" datetime="2016-05-14T13:07:17+00:00">May 14, 2016</time>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post-content post-excerpt cf">
-                                                            <p>More off this less hello salamander lied porpoise much over tightly circa horse taped so innocuously outside crud mightily rigorous…</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
+                    @include('interface_front.position_1', ['items' => isset($obj['position_1']) ? $obj['position_1'] : []])
                 </div>
                 <div class="ts-row blocks cf wpb_row">
                     <div class="wpb_column vc_column_container vc_col-sm-12 col-12">
                         <div class="vc_column-inner">
                             <div class="wpb_wrapper">
                                 <div class="block">
-                                    <div class="widget widget-a-wrap">
-                                        <div class="the-wrap">
-                                            <div class="show-lg">
-                                                <img src="{{asset('/img/ads_lg.jpg')}}" alt="Ad">
-                                            </div>
-                                            <div class="show-sm show-md">
-                                                <img src="{{asset('/img/ads_md.jpg')}}" alt="Ad">
-                                            </div>
-                                            <div class="show-xs show-ty">
-                                                <img src="{{asset('/img/ads_ty.jpg')}}" alt="Ad">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('interface_layouts.ads_wrap', ['class' => ''])
                                 </div>
                             </div>
                         </div>

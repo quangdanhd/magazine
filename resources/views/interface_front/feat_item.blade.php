@@ -18,7 +18,7 @@
             </h3>
             <div class="below meta-below">
                 <span class="meta-item post-author">
-                    <span>Admin</span>
+                    <span title="Posts by Admin">Admin</span>
                 </span>
                 <span class="meta-sep"></span>
                 <span class="meta-item date-link">

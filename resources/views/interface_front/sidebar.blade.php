@@ -89,32 +89,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li id="categories-2" class="widget widget_categories">
-                            <h5 class="widget-title block-head-d has-style">
-                                <span class="title">Categories</span>
-                            </h5>
-                            <ul>
-                                <li class="cat-item cat-item-8">
-                                    <a href="#">Business</a>
-                                    (8)
-                                </li>
-                                <li class="cat-item cat-item-1">
-                                    <a href="#">Culture</a>
-                                    (10)
-                                </li>
-                                <li class="cat-item cat-item-9">
-                                    <a href="#">Lifestyle</a>
-                                    (8)
-                                </li>
-                                <li class="cat-item cat-item-7">
-                                    <a href="#">Technology</a>
-                                    (11)
-                                </li>
-                                <li class="cat-item cat-item-43">
-                                    <a href="#">Travel</a>
-                                    (8)
-                                </li>
-                            </ul>
+                        <li class="widget widget_categories">
+                            @include('interface_front.sidebar_categories')
                         </li>
                     </ul>
                 </div>

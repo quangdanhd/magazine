@@ -14,7 +14,7 @@
                 </span>
             </div>
             <h3 class="is-title post-title">
-                <a href="@include('interface_layouts.href_news_view', ['href' => $item['url']])">{{\Illuminate\Support\Str::limit($item['title'], $limit = 120, $end = '...')}}</a>
+                <a href="@include('interface_layouts.href_news_view', ['href' => $item['url']])">{{\Illuminate\Support\Str::limit($item['title'], $limit = 70, $end = '...')}}</a>
             </h3>
             <div class="below meta-below">
                 <span class="meta-item post-author">

@@ -19,16 +19,16 @@ class CreateNewsCategoryTable extends Migration
         DB::table('news_category')->insert(
             array(
                 [
-                    'name' => 'MOVIES',
-                    'url' => 'movies',
+                    'name' => 'Movies',
+                    'url' => '/movies',
                 ],
                 [
-                    'name' => 'SPORTS',
-                    'url' => 'sports',
+                    'name' => 'Sports',
+                    'url' => '/sports',
                 ],
                 [
-                    'name' => 'TECHNOLOGY',
-                    'url' => 'technology',
+                    'name' => 'Technology',
+                    'url' => '/technology',
                 ],
             )
         );

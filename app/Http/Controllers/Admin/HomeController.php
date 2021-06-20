@@ -11,6 +11,7 @@ class HomeController extends Controller
 {
     public function data_config()
     {
+        $obj['title'] = 'Trang chủ admin';
         // Chart 1
         $title = 'Lượt truy cập 30 ngày gần đây';
         $type = 'AreaChart';

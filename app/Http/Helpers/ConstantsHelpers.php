@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\news;
+use App\Models\news_category;
 use Illuminate\Support\Facades\DB;
 
 function get_db_column()
@@ -151,7 +152,7 @@ function config_search_popup($key)
                 'created_at' . explode_filter() . 'from' => '>=',
             ],
             'select' => [
-                'category_id' => (new \App\Models\news_category)->getCachedCategory()->pluck('name', 'id'),
+                'category_id' => (new news_category)->getCachedCategory()->pluck('name', 'id'),
                 'publish' => [
                     '0' => 'no',
                     '1' => 'yes',

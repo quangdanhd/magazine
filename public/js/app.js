@@ -2429,6 +2429,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['obj'],
   data: function data() {
@@ -2437,6 +2438,7 @@ __webpack_require__.r(__webpack_exports__);
       error: '',
       positions: [],
       category: [],
+      layouts: [],
       image: '',
       formSubmit: false
     };
@@ -2444,6 +2446,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.positions = this.obj['positions'];
     this.category = this.obj['category'];
+    this.layouts = this.obj['layouts'];
     this.image = this.obj['image'];
   },
   methods: {
@@ -2453,7 +2456,43 @@ __webpack_require__.r(__webpack_exports__);
     closeError: function closeError() {
       this.error = '';
     },
-    submitDataForm: function submitDataForm(e) {}
+    submitDataForm: function submitDataForm(e) {
+      var _this = this;
+
+      e.preventDefault();
+      var form = $('form.needs-validation');
+
+      if (form[0].checkValidity() === true) {
+        this.formSubmit = true;
+        this.message = '';
+        this.error = '';
+        axios.post('home-layouts', {
+          layouts: this.layouts
+        }).then(function (response) {
+          if (response.data['status'] === 'success') {
+            var message = response.data['message'];
+            axios.get('home-layouts').then(function (response) {
+              _this.layouts = response.data['layouts'];
+              _this.message = message;
+              _this.formSubmit = false;
+            })["catch"](function (error) {
+              _this.error = error.response.data.message;
+              _this.formSubmit = false;
+            });
+          } else {
+            _this.formSubmit = false;
+          }
+
+          _this.formSubmit = false;
+        })["catch"](function (error) {
+          _this.error = error.response.data.message;
+          _this.formSubmit = false;
+        });
+      } else {
+        form.addClass('was-validated');
+        this.error = 'Thông tin dữ liệu nhập chưa chính xác hoặc không được phép để trống. Vui lòng kiểm tra lại!';
+      }
+    }
   }
 });
 
@@ -48918,7 +48957,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid pt-2 pb-2" }, [
+  return _c("div", [
+    _c("h4", [_vm._v("Bố cục trang chủ")]),
+    _vm._v(" "),
     _vm.formSubmit
       ? _c("div", { staticClass: "report-loader" }, [_vm._m(0)])
       : _vm._e(),
@@ -49008,8 +49049,35 @@ var render = function() {
                       _c(
                         "select",
                         {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.layouts[key]["category_id"],
+                              expression: "layouts[key]['category_id']"
+                            }
+                          ],
                           staticClass: "form-control form-control-sm",
-                          attrs: { required: "" }
+                          attrs: { required: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.layouts[key],
+                                "category_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
                         },
                         [
                           _c("option", { attrs: { value: "" } }, [

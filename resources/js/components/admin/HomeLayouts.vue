@@ -1,5 +1,6 @@
 <template>
-    <div class="container-fluid pt-2 pb-2">
+    <div>
+        <h4>Bố cục trang chủ</h4>
         <div v-if="formSubmit" class="report-loader">
             <div class="lds-spinner">
                 <div></div>
@@ -41,7 +42,7 @@
                         </label>
                         <div class="col-12 col-sm-8">
                             <label class="w-100 mb-0">
-                                <select class="form-control form-control-sm" required>
+                                <select v-model="layouts[key]['category_id']" class="form-control form-control-sm" required>
                                     <option value>{{$t('button.option_none')}}</option>
                                     <option v-for="(option, op_key) in category" :key="op_key + '-option'" :value="op_key">
                                         {{option}}
@@ -75,6 +76,7 @@
                 error: '',
                 positions: [],
                 category: [],
+                layouts: [],
                 image: '',
                 formSubmit: false,
             }
@@ -82,6 +84,7 @@
         created() {
             this.positions = this.obj['positions'];
             this.category = this.obj['category'];
+            this.layouts = this.obj['layouts'];
             this.image = this.obj['image'];
         },
         methods: {
@@ -92,7 +95,37 @@
                 this.error = '';
             },
             submitDataForm(e) {
-
+                e.preventDefault();
+                let form = $('form.needs-validation');
+                if (form[0].checkValidity() === true) {
+                    this.formSubmit = true;
+                    this.message = '';
+                    this.error = '';
+                    axios.post('home-layouts', {
+                        layouts: this.layouts,
+                    }).then(response => {
+                        if (response.data['status'] === 'success') {
+                            let message = response.data['message'];
+                            axios.get('home-layouts').then(response => {
+                                this.layouts = response.data['layouts'];
+                                this.message = message;
+                                this.formSubmit = false;
+                            }).catch(error => {
+                                this.error = error.response.data.message;
+                                this.formSubmit = false;
+                            });
+                        } else {
+                            this.formSubmit = false;
+                        }
+                        this.formSubmit = false;
+                    }).catch(error => {
+                        this.error = error.response.data.message;
+                        this.formSubmit = false;
+                    })
+                } else {
+                    form.addClass('was-validated');
+                    this.error = 'Thông tin dữ liệu nhập chưa chính xác hoặc không được phép để trống. Vui lòng kiểm tra lại!';
+                }
             }
         }
     }

@@ -1,3 +1,12 @@
+<div class="top-bar dark top-bar-b cf">
+    <div class="top-bar-content ts-contain" data-sticky-bar="1">
+        <div class="wrap cf">
+            <span class="mobile-nav">
+                <i class="tsi tsi-bars"></i>
+            </span>
+        </div>
+    </div>
+</div>
 <div class="inner inner-head ts-contain" data-sticky-bar="1">
     <div class="wrap cf">
         <h1 class="title">

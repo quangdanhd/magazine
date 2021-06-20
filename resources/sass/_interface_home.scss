@@ -6102,3 +6102,17 @@ button, .button {
 .main-footer .lower-footer:not(._) {
     background: 0 0;
 }
+@media (max-width: 767px) {
+    .main-head .title .mobile-logo+.logo-image, .main-head .title picture+picture {
+        display: none;
+    }
+    .tsi-bars:before {
+        content: "\f0c9";
+    }
+}
+@media (min-width: 767px) {
+    #main-head .top-bar {
+        display: none;
+    }
+}
+

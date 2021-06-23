@@ -55,6 +55,7 @@ class news extends Model implements Authenticatable
                 $model->new_of_category = 1;
                 $model->newest = 1;
             }
+            Cache::forget('news-popular-from-date');
         });
     }
 
@@ -70,15 +71,17 @@ class news extends Model implements Authenticatable
 
     public function getNewsPopularFrom($from = '')
     {
+        $take = 5;
         $return = $this->all('title', 'image', 'url', 'created_at');
         if (!!$from) {
             $return = $return->where('created_at', '>=', $from);
         }
-        return $return->sortByDesc('view')->take(5);
+        return $return->sortByDesc('view')->take($take);
     }
 
     public function getCachedNewsPopular()
     {
+        $take = 5;
         $cache_key = 'news-popular-from-date';
         $popular = Cache::get($cache_key);
         if (!$popular) {
@@ -86,12 +89,12 @@ class news extends Model implements Authenticatable
             $seconds = 30 * 60;
             $from = date('Y-m-d H:i:s', strtotime('-1 days'));
             $get_popular = (new news)->getNewsPopularFrom($from);
-            if ($get_popular->isEmpty()) {
+            if (sizeof($get_popular->toArray()) < 5) {
                 // one weeks (cache 1 day)
                 $seconds = 1 * 24 * 60 * 60;
                 $from = date('Y-m-d H:i:s', strtotime('-7 days'));
                 $get_popular = (new news)->getNewsPopularFrom($from);
-                if ($get_popular->isEmpty()) {
+                if (sizeof($get_popular->toArray()) < 5) {
                     // all (cache 1 day)
                     $get_popular = (new news)->getNewsPopularFrom();
                 }

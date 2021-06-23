@@ -55,6 +55,7 @@ class news extends Model implements Authenticatable
                 $model->new_of_category = 1;
                 $model->newest = 1;
             }
+            Cache::forget('home-data-cached');
             Cache::forget('news-popular-from-date');
         });
     }
@@ -62,11 +63,6 @@ class news extends Model implements Authenticatable
     public function dataFormIndex()
     {
         return $this->whereNotNull('news.id')->orderBy('id', 'desc');
-    }
-
-    public function news_top()
-    {
-        return $this->orderBy('views', 'desc');
     }
 
     public function getNewsPopularFrom($from = '')
@@ -89,12 +85,12 @@ class news extends Model implements Authenticatable
             $seconds = 30 * 60;
             $from = date('Y-m-d H:i:s', strtotime('-1 days'));
             $get_popular = (new news)->getNewsPopularFrom($from);
-            if (sizeof($get_popular->toArray()) < 5) {
+            if (sizeof($get_popular->toArray()) < $take) {
                 // one weeks (cache 1 day)
                 $seconds = 1 * 24 * 60 * 60;
                 $from = date('Y-m-d H:i:s', strtotime('-7 days'));
                 $get_popular = (new news)->getNewsPopularFrom($from);
-                if (sizeof($get_popular->toArray()) < 5) {
+                if (sizeof($get_popular->toArray()) < $take) {
                     // all (cache 1 day)
                     $get_popular = (new news)->getNewsPopularFrom();
                 }

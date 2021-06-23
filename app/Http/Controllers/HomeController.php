@@ -6,6 +6,7 @@ use App\Models\home_layouts;
 use App\Models\news;
 use App\Models\news_category;
 use App\Models\news_view;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends ControllerUsers
@@ -36,9 +37,13 @@ class HomeController extends ControllerUsers
             }
         }
         // Home data
-        $home_data = DB::table('news')->select('id', 'title', 'category_id', 'describe', 'url', 'image', 'newest', 'created_at')->where(function ($query) {
-            $query->where('new_of_category', 1)->orWhere('newest', 1);
-        })->whereIn('category_id', array_values($layout_category))->where('publish', 1)->orderBy('id', 'desc')->get();
+        $home_data = Cache::get('home-data-cached');
+        if (!$home_data) {
+            $home_data = DB::table('news')->select('id', 'title', 'category_id', 'describe', 'url', 'image', 'newest', 'created_at')->where(function ($query) {
+                $query->where('new_of_category', 1)->orWhere('newest', 1);
+            })->whereIn('category_id', array_values($layout_category))->where('publish', 1)->orderBy('id', 'desc')->get();
+            Cache::put('home-data-cached', $home_data);
+        }
         $feat = [];
         $position_1 = [];
         $position_2 = [];

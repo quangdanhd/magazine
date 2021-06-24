@@ -6186,8 +6186,7 @@ jQuery(function ($) {
   "use strict";
 
   var init = function init() {
-    Bunyad_Theme.init();
-    Bunyad_Pagination.init();
+    Bunyad_Theme.init(); // Bunyad_Pagination.init();
   };
 
   var rp_support = function rp_support() {
@@ -14603,6 +14602,47 @@ jQuery.noConflict();
 ;
 /* Source and licensing information for the above line(s) can be found at https://www.indiatoday.in/misc/drupal.js. */
 
+/***/ }),
+
+/***/ "./resources/js/interface/my_custom.js":
+/*!*********************************************!*\
+  !*** ./resources/js/interface/my_custom.js ***!
+  \*********************************************/
+/***/ (() => {
+
+jQuery(document).on('click', '.main-pagination .load-button', function () {
+  var load = jQuery(this);
+
+  if (!load.hasClass('loading')) {
+    load.addClass('loading').find('.tsi').addClass('tsi-spin');
+    var page = jQuery(this).attr('data-page');
+
+    if (!!page) {
+      var url = '/latest-pagination?page=' + page;
+      jQuery.get(url, function (data, status) {
+        if (status === 'success') {
+          if (!!data) {
+            var html = typeof data['html'] !== 'undefined' ? data['html'] : '';
+            load.closest('.main-content').find('.block-content').find('.posts-wrap').append(html);
+            var next_page = typeof data['next_page'] !== 'undefined' ? data['next_page'] : false;
+
+            if (next_page) {
+              page++;
+              load.attr('data-page', page);
+            } else {
+              load.hide();
+            }
+          } else {
+            load.hide();
+          }
+        }
+
+        load.removeClass('loading').find('.tsi').removeClass('tsi-spin');
+      });
+    }
+  }
+});
+
 /***/ })
 
 /******/ 	});
@@ -14659,6 +14699,8 @@ var __webpack_exports__ = {};
 __webpack_require__(/*! ./interface/js_jquery */ "./resources/js/interface/js_jquery.js");
 
 __webpack_require__(/*! ./interface/autoptimize */ "./resources/js/interface/autoptimize.js");
+
+__webpack_require__(/*! ./interface/my_custom */ "./resources/js/interface/my_custom.js");
 })();
 
 /******/ })()

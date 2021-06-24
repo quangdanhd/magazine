@@ -7278,6 +7278,10 @@ button, .button {
   animation: tsi-spin 2s infinite linear;
 }
 
+.load-button {
+  cursor: pointer;
+}
+
 .mobile-menu-container {
   display: none;
 }

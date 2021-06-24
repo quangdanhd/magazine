@@ -1,9 +1,9 @@
 require('./bootstrap');
-require('./menu');
+require('./plugins/menu');
 
 window.Vue = require('vue').default;
 import store from './store/index';
-import './ReportHelpers';
+import './plugins/ReportHelpers';
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated.js';
 

@@ -19,15 +19,7 @@ class HomeController extends ControllerUsers
         $positions = config('constants.home_positions');
         $position_keys = array_keys($positions);
         // Category
-        $category_db = (new news_category)->getCachedCategory()->toArray();
-        $category = [];
-        foreach ($category_db as $key => $value) {
-            $category[$value['id']] = [
-                'name' => $value['name'],
-                'url' => $value['url'],
-            ];
-        }
-        $obj['category'] = $category;
+        $obj['category'] = $this->all_category_data();;
         // Layouts
         $layout_db = (new home_layouts)->getCachedHomeLayouts()->toArray();
         $layout_category = [];
@@ -83,6 +75,38 @@ class HomeController extends ControllerUsers
         $popular = (new news)->getCachedNewsPopular()->toArray();
         $obj['popular'] = $popular;
         return view('home')->with('obj', $obj);
+    }
+
+    public function latest_pagination()
+    {
+        $page = isset(request()['page']) ? request()['page'] : '';
+        if (request()->ajax() && !!$page) {
+            $take = 6;
+            $skip = $take * $page;
+            $items_db = DB::table('news')->select('id', 'title', 'category_id', 'url', 'image', 'created_at')->where('publish', 1)->orderBy('id', 'desc')->skip($skip)->take(($take + 1))->get()->toArray();
+            $items = [];
+            foreach ($items_db as $key => $value) {
+                if ($key < $take) {
+                    $items[] = (array)$value;
+                }
+            }
+            // Category
+            $obj['category'] = $this->all_category_data();
+            $obj['items'] = $items;
+            // Html
+            $html = (string)view('interface_front/loop_grid_pagination')->with('obj', $obj);
+            // Next page
+            $next_page = true;
+            if (sizeof($items_db) <= $take) {
+                $next_page = false;
+            }
+            return [
+                'html' => $html,
+                'next_page' => $next_page,
+            ];
+        }
+        $obj['title'] = '404 | Not Found';
+        return view('errors.404_custom')->with('obj', $obj);
     }
 
     public function show($url)
@@ -147,5 +171,18 @@ class HomeController extends ControllerUsers
                 'unknown_token' => $uniqueID,
             ]);
         }
+    }
+
+    public function all_category_data()
+    {
+        $category_db = (new news_category)->getCachedCategory()->toArray();
+        $category = [];
+        foreach ($category_db as $key => $value) {
+            $category[$value['id']] = [
+                'name' => $value['name'],
+                'url' => $value['url'],
+            ];
+        }
+        return $category;
     }
 }

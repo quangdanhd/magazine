@@ -4656,7 +4656,7 @@ jQuery(function ($) {
     "use strict";
     var init = function () {
         Bunyad_Theme.init();
-        Bunyad_Pagination.init();
+        // Bunyad_Pagination.init();
     };
     var rp_support = function () {
         var relList = document.createElement('link').relList;

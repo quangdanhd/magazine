@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="main-pagination load-more">
-                <a href="#" class="load-button" data-page="1"> Load More <i class="tsi tsi-repeat"></i></a>
+                <span class="load-button" data-page="1"> Load More <i class="tsi tsi-repeat"></i></span>
             </div>
         </div>
     </section>

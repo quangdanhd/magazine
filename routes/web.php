@@ -45,7 +45,8 @@ Route::group(['namespace' => 'Admin'], function () {
 });
 // Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-
+// Latest Pagination
+Route::get('/latest-pagination', [App\Http\Controllers\HomeController::class, 'latest_pagination']);
 
 // Category
 Route::get('/category/{url}', [App\Http\Controllers\HomeController::class, 'category']);

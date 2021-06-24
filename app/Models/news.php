@@ -57,6 +57,7 @@ class news extends Model implements Authenticatable
             }
             Cache::forget('home-data-cached');
             Cache::forget('news-popular-from-date');
+            Cache::forget('news-show-data-cached');
         });
     }
 

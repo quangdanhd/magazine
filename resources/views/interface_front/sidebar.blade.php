@@ -6,8 +6,16 @@
                     <ul>
                         <li class="widget widget-posts">
                             @if(isset($obj['popular']))
+                                <h5 class="widget-title block-head-d has-style">
+                                    <span class="title">Popular</span>
+                                </h5>
                                 @include('interface_front.sidebar_popular', ['items' => $obj['popular']])
                             @endif
+                        </li>
+                        <li class="widget widget-a-wrap">
+                            <div class="the-wrap">
+                                <img class="lazyload" src="" data-src="/img/ads_sidebar.jpg" alt="ads">
+                            </div>
                         </li>
                         <li class="widget widget_categories">
                             @include('interface_front.sidebar_categories')

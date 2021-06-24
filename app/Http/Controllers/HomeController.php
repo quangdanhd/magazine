@@ -46,7 +46,7 @@ class HomeController extends ControllerUsers
             $arr = (array)$value;
             // Newest
             if (!!$arr['newest']) {
-                $arr['image'] = str_replace('news_450x300', 'news', $arr['image']);
+                $arr['image'] = $this->replace_image_size($arr['image']);
                 $feat[] = $arr;
             }
             if ($layout_category[0] == $arr['category_id']) {
@@ -111,13 +111,31 @@ class HomeController extends ControllerUsers
 
     public function show($url)
     {
-        $obj = menu_category();
-        $news = DB::table('news')->select('id', 'title', 'describe', 'category_id', 'content', 'created_at', 'updated_at')->where('url', $url)->where('publish', 1)->first();
+        // $obj = menu_category();
+        $news = DB::table('news')->select('id', 'title', 'describe', 'image', 'category_id', 'content', 'created_at')->where('url', $url)->where('publish', 1)->first();
         if ($news) {
             $obj['title'] = $news->title;
             $obj['detail'] = $news;
-            $this->view_node($news->id);
-            $this->aside_data($obj, $news->category_id);
+            // $this->view_node($news->id);
+            // Latest
+            $take = 5;
+            $latest_db = DB::table('news')->select('id', 'title', 'url', 'image', 'created_at')->where('publish', 1)->orderBy('id', 'desc')->skip(0)->take($take)->get();
+            $latest = [];
+            foreach ($latest_db as $key => $value) {
+                $arr = (array)$value;
+                $arr['image'] = $this->replace_image_size($arr['image']);
+                $latest[] = $arr;
+            }
+            $obj['latest'] = $latest;
+            // Category
+            $obj['category'] = $this->all_category_data();
+            // Related
+            $take = 3;
+            $related_db = DB::table('news')->select('id', 'title', 'url', 'image', 'created_at')->where('publish', 1)->where('category_id', $news->category_id)->orderBy('id', 'desc')->take($take)->get()->toArray();
+            $related = array_map(function ($a) {
+                return (array)$a;
+            }, $related_db);
+            $obj['related'] = $related;
             return view('detail')->with('obj', $obj);
         }
         $obj['title'] = '404 | Not Found';
@@ -134,30 +152,11 @@ class HomeController extends ControllerUsers
             $take = 20;
             $list = DB::table('news')->select('id', 'title', 'describe', 'image', 'url')->where('category_id', $category->id)->where('publish', 1)->paginate($take);
             $obj['list'] = $list;
-            $this->aside_data($obj, $category->id);
+            // $this->aside_data($obj, $category->id);
             return view('category')->with('obj', $obj);
         }
         $obj['title'] = '404 | Not Found';
         return view('errors.404_custom')->with('obj', $obj);
-    }
-
-    public function aside_data(&$obj, $category_id)
-    {
-        // Top
-        $take = 4;
-        $top_db = get_top_news();
-        $top_db = $top_db->select('id', 'title', 'url', 'image')->take($take)->get();
-        $top = [];
-        foreach ($top_db as $key => $value) {
-            $arr = (array)$value;
-            $arr['image'] = str_replace('news_370x208', 'news_237x133', $arr['image']);
-            $top[] = $arr;
-        }
-        $obj['top'] = $top;
-        // Recommend
-        $take = 5;
-        $recommend_db = DB::table('news')->select('id', 'title', 'url', 'image')->where('publish', 1)->where('category_id', $category_id)->orderBy('id', 'desc')->take($take)->get();
-        $obj['recommend'] = $recommend_db;
     }
 
     public function view_node($news_id)
@@ -184,5 +183,10 @@ class HomeController extends ControllerUsers
             ];
         }
         return $category;
+    }
+
+    public function replace_image_size($img)
+    {
+        return str_replace('news_450x300', 'news', $img);
     }
 }

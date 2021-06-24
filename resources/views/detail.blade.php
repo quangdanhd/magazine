@@ -1,25 +1,4 @@
-@extends('interface_layouts.master', ['title' => isset($obj['title']) ? $obj['title'] : '', 'body_class' => 'not-front'])
-@section('breadcrumb')
-    <div id="block-itg-layout-manager-front-end-breadcrumb" class="block block-itg-layout-manager last odd">
-        <div class="container">
-            <div>
-                <div class="lft pathone">
-                    <a href="#" itemprop="item">
-                        <span itemprop="name">News</span>
-                    </a>
-                    <meta itemprop="position" content="1">
-                </div>
-                <div itemprop="itemListElement" class="lft pathone">
-                    <a href="#" itemprop="item">
-                        <span class="sec_name" itemprop="name">India</span>
-                    </a>
-                    <meta itemprop="position" content="2">
-                </div>
-                <span class="content_name">{{$obj['title']}}</span>
-            </div>
-        </div>
-    </div>
-@stop
+@extends('interface_layouts.master', ['title' => isset($obj['title']) ? $obj['title'] : '', 'body_class' => 'post-template-default single single-post single-format-standard right-sidebar lazy-smart layout-magazine skin-magazine has-lb has-lb-s wpb-js-composer js-comp-ver-6.2.0 vc_responsive'])
 @section('content')
-    @include('interface_detail.main', ['obj' => $obj])
+    @include('interface_detail.main')
 @stop

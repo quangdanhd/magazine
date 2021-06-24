@@ -7282,6 +7282,11 @@ button, .button {
   cursor: pointer;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .mobile-menu-container {
   display: none;
 }
@@ -7531,4 +7536,203 @@ button, .button {
 
 .mobile-menu li a {
   letter-spacing: 0.08em;
+}
+
+.main {
+  margin-top: 55px;
+  margin-bottom: 80px;
+}
+
+.ts-contain, .main {
+  padding: 0 var(--wrap-padding);
+}
+
+.main {
+  width: calc(var(--main-width) + var(--wrap-padding) * 2);
+  margin: 65px auto 100px;
+}
+
+.wrap {
+  width: var(--main-width);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.ts-contain, .wrap, .main-wrap {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.single-magazine .post-top .post-title {
+  letter-spacing: -0.025em;
+  margin-top: 18px;
+  margin-bottom: 15px;
+  font-size: 36px;
+  line-height: 1.3;
+}
+.single-magazine .post-top .sub-title {
+  margin-top: -4px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  font-size: 17px;
+  color: gray;
+  -webkit-font-smoothing: antialiased;
+}
+.single-magazine .post-top .the-post-meta {
+  margin-bottom: 35px;
+}
+
+.text, .post-content, .textwidget {
+  -webkit-font-smoothing: initial;
+}
+
+.entry-content {
+  --text-size: var(--single-content-size);
+  font-size: var(--single-content-size);
+}
+
+.post-content {
+  font-family: var(--text-font);
+  letter-spacing: var(--text-tracking);
+  color: var(--text-color);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  line-height: var(--post-content-lh, 1.8);
+  font-size: var(--post-content-size);
+}
+
+.post-content blockquote, .post-content .wp-block-quote.is-style-large, .textwidget blockquote, .textwidget .wp-block-quote.is-style-large {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+blockquote {
+  font-size: 17px;
+  color: #989898;
+  padding-left: 45px;
+  font-family: var(--blockquote-font);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: initial;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+blockquote:before {
+  content: "“";
+  float: left;
+  margin-top: 18px;
+  margin-left: -45px;
+  font-family: Georgia, Merriweather, serif;
+  font-style: normal;
+  font-size: 60px;
+  line-height: 0.41;
+  color: var(--main-color);
+}
+blockquote p > cite {
+  margin-left: 16px;
+  margin-right: 14px;
+}
+blockquote cite, blockquote blockquote [class*=__citation] {
+  font-family: var(--ui-font);
+  color: #888;
+  font-size: 13px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+.content-spacious > p img.aligncenter, .content-spacious .wp-caption.aligncenter, .content-spacious .wp-block-image.aligncenter, .content-spacious .wp-block-gallery.aligncenter, .content-spacious .gallery.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+.wp-caption {
+  max-width: 100%;
+}
+
+.aligncenter, div.aligncenter {
+  display: block;
+  margin: var(--p-media-margin) auto;
+  text-align: center;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+.post-content figure > a:not(.pinit-btn) {
+  display: block;
+}
+
+.post-content a, .textwidget a {
+  color: var(--main-color);
+}
+
+.wp-post-image, .post-content img {
+  will-change: opacity;
+  transition: opacity 0.3s ease-in;
+}
+
+@media (min-width: 768px) {
+  .content-spacious {
+    padding-left: 3.896%;
+    padding-right: 3.896%;
+  }
+}
+.related-posts {
+  margin-bottom: 45px;
+}
+.related-posts .posts {
+  margin-bottom: -30px;
+  padding-top: 35px;
+  text-align: initial;
+  padding-bottom: 10px;
+}
+.related-posts .post-title {
+  font-weight: 600;
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 7px;
+  font-size: var(--related-posts-title);
+}
+.related-posts .post-meta {
+  margin-bottom: 15px;
+}
+.related-posts .post-meta.has-below {
+  margin-bottom: var(--pm-h-below-mb, var(--post-meta-mb));
+}
+
+.post-title, .post-title-alt {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.post-title {
+  font-family: var(--title-font);
+  font-size: var(--post-title-size);
+  font-weight: 600;
+  line-height: 1.35;
+  text-transform: none;
+}
+
+.post-meta {
+  font-size: 11px;
+}
+
+.post-meta-c {
+  color: #aaa;
+}
+
+.post-meta {
+  margin-bottom: var(--post-meta-mb, initial);
+  color: #b4b4b4;
+  font-family: var(--ui-font);
+  font-size: 11px;
+  line-height: 1.5;
+  text-transform: uppercase;
 }

@@ -65,9 +65,14 @@ class news extends Model implements Authenticatable
         return $this->whereNotNull('news.id')->orderBy('id', 'desc');
     }
 
+    public function itemsPopularTake()
+    {
+        return 3;
+    }
+
     public function getNewsPopularFrom($from = '')
     {
-        $take = 5;
+        $take = $this->itemsPopularTake();
         $return = $this->all('title', 'image', 'url', 'created_at');
         if (!!$from) {
             $return = $return->where('created_at', '>=', $from);
@@ -77,7 +82,7 @@ class news extends Model implements Authenticatable
 
     public function getCachedNewsPopular()
     {
-        $take = 5;
+        $take = $this->itemsPopularTake();
         $cache_key = 'news-popular-from-date';
         $popular = Cache::get($cache_key);
         if (!$popular) {

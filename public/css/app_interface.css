@@ -3280,10 +3280,6 @@ body {
   width: 50px;
 }
 
-.blocks .block {
-  margin-bottom: 65px;
-}
-
 .block-head {
   font-family: var(--h-font);
   color: var(--black-800);
@@ -6349,6 +6345,10 @@ body {
     max-width: 33.333%;
   }
 }
+.blocks .block {
+  margin-bottom: 50px;
+}
+
 @media (max-width: 540px) {
   .xs\:grid-1 {
     --g-cols: 1;
@@ -6400,7 +6400,7 @@ body {
   }
 
   .blocks .block {
-    margin-bottom: 45px;
+    margin-bottom: 25px;
   }
 
   .list-post {
@@ -6496,6 +6496,10 @@ body {
 
   .feat-grid-a .item:not(.item-large) :nth-last-child(2), .feat-grid-b .item:not(.item-large) :nth-last-child(2), .feat-grid-c .item:not(.item-large) :nth-last-child(2) {
     margin-bottom: 0;
+  }
+
+  .posts-list > :last-child .list-post, .posts-dynamic.list .posts-wrap:last-child > :last-child .list-post {
+    margin-bottom: 35px;
   }
 }
 @media (max-width: 350px) {
@@ -7130,10 +7134,6 @@ button, .button {
   font-weight: 700;
   letter-spacing: -0.01em;
   color: #000;
-}
-
-.blocks .block {
-  margin-bottom: 50px;
 }
 
 .block-head-b {

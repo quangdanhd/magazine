@@ -7544,15 +7544,6 @@ img {
   letter-spacing: 0.08em;
 }
 
-.ts-contain, .main {
-  padding: 0 var(--wrap-padding);
-}
-
-.ts-contain, .wrap, .main-wrap {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
 .single-magazine .post-top .post-title {
   letter-spacing: -0.025em;
   margin-top: 18px;

@@ -1,5 +1,5 @@
 <aside class="col-4 sidebar" data-sticky="1" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
-    <div class="inner theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: absolute; transform: translateY(2777px); width: 340px; top: 0px;">
+    <div class="inner theiaStickySidebar">
         <ul>
             <li class="widget widget-posts">
                 @if(isset($obj['latest']))

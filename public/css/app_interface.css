@@ -1784,6 +1784,12 @@ body {
     max-width: 680px;
   }
 }
+.wrap {
+  width: var(--main-width);
+  margin: 0 auto;
+  text-align: left;
+}
+
 .main {
   width: calc(var(--main-width) + var(--wrap-padding) * 2);
   margin: 65px auto 100px;
@@ -7538,24 +7544,8 @@ img {
   letter-spacing: 0.08em;
 }
 
-.main {
-  margin-top: 55px;
-  margin-bottom: 80px;
-}
-
 .ts-contain, .main {
   padding: 0 var(--wrap-padding);
-}
-
-.main {
-  width: calc(var(--main-width) + var(--wrap-padding) * 2);
-  margin: 65px auto 100px;
-}
-
-.wrap {
-  width: var(--main-width);
-  margin: 0 auto;
-  text-align: left;
 }
 
 .ts-contain, .wrap, .main-wrap {

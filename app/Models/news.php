@@ -58,6 +58,7 @@ class news extends Model implements Authenticatable
             Cache::forget('home-data-cached');
             Cache::forget('news-popular-from-date');
             Cache::forget('news-show-data-cached');
+            Cache::forget('news-latest-cached');
         });
     }
 
@@ -105,5 +106,12 @@ class news extends Model implements Authenticatable
             $popular = Cache::get($cache_key);
         }
         return $popular;
+    }
+
+    public function getCachedNewsLatest()
+    {
+        return Cache::rememberForever('news-latest-cached', function () {
+            return $this->all('id', 'title', 'url', 'image', 'created_at', 'publish')->where('publish', 1)->sortByDesc('id')->skip(0)->take(5);
+        });
     }
 }

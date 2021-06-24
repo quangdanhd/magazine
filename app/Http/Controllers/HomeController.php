@@ -130,8 +130,7 @@ class HomeController extends ControllerUsers
                 $obj['detail'] = $news;
                 // $this->view_node($news->id);
                 // Latest
-                $take = 5;
-                $latest_db = DB::table('news')->select('id', 'title', 'url', 'image', 'created_at')->where('publish', 1)->orderBy('id', 'desc')->skip(0)->take($take)->get();
+                $latest_db = (new news)->getCachedNewsLatest()->toArray();
                 $latest = [];
                 foreach ($latest_db as $key => $value) {
                     $arr = (array)$value;

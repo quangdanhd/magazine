@@ -46,7 +46,7 @@ class news extends Model implements Authenticatable
                 if (!$created_at) {
                     $date = date('Ymd-His');
                 } else {
-                    $date = $model->created_at->format('m/d/Y');
+                    $date = $model->created_at->format('Ymd-His');
                 }
                 $url .= '-' . $date;
             }

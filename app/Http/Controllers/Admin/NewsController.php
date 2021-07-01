@@ -208,6 +208,8 @@ class NewsController extends Controller
                 ],
                 'describe' => [
                     'required',
+                    'string',
+                    'max:500',
                 ],
                 'content' => [
                     'required',
@@ -216,6 +218,8 @@ class NewsController extends Controller
             [
                 'title.required' => 'Tiêu đề không được để trống.',
                 'title.max' => 'Tiêu đề không được vượt quá 250 ký tự.',
+                'describe.required' => 'Mô tả không được để trống.',
+                'describe.max' => 'Mô tả không được vượt quá 500 ký tự.',
             ]
         );
         if ($validator->fails()) {

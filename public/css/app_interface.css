@@ -3962,7 +3962,8 @@ body {
   font-style: italic;
 }
 
-.large-post-b .post-footer .author a {
+.large-post-b .post-footer .author a,
+.large-post-b .post-footer .author .author {
   color: var(--main-color);
   font-family: var(--ui-font);
   font-weight: 600;
@@ -7716,4 +7717,111 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-size: 11px;
   line-height: 1.5;
   text-transform: uppercase;
+}
+
+.post-content .read-more {
+  margin-top: 35px;
+  font-family: var(--ui-font);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.post-content .read-more a {
+  position: relative;
+  display: inline-block;
+  color: #161616;
+}
+.post-content .read-more a span {
+  position: relative;
+  padding: 0 10px;
+  background: #fff;
+  z-index: 1;
+}
+.post-content > :last-child, .post-content .textwidget > :last-child {
+  margin-bottom: 0;
+}
+
+.large-post-b .read-more a {
+  padding: 13px 19px;
+  border: 1px solid #e5e5e5;
+  background: #fbfbfb;
+  color: #777;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  -webkit-font-smoothing: initial;
+}
+.large-post-b .read-more a span {
+  padding: 0;
+  background: 0 0;
+}
+.large-post-b .read-more a:hover {
+  background: #000;
+  color: #fff;
+}
+
+.main-pagination.number {
+  font-size: 13px;
+  color: #161616;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+.main-pagination.number .page-numbers {
+  padding: 0 5px;
+  margin-right: 10px;
+}
+.main-pagination.number .inner {
+  display: inline-block;
+  padding: 5px 26px;
+  border: 1px solid #ebebeb;
+}
+.main-pagination.number .label-prev {
+  padding: 0;
+  margin-right: 18px;
+}
+.main-pagination.number .label-next {
+  padding: 0;
+  margin-left: 8px;
+}
+.main-pagination.number .label-next .tsi {
+  color: #acacac;
+  margin: 0 0 0 8px;
+}
+.main-pagination.number .page-numbers, .main-pagination.number .main-pagination.number a {
+  display: inline-block;
+  line-height: 30px;
+}
+.main-pagination.number .current {
+  color: var(--main-color);
+}
+.main-pagination.number .page-numbers {
+  padding: 0 5px;
+  margin-right: 10px;
+}
+.main-pagination.number .page-numbers:last-child {
+  margin-right: 0;
+}
+.main-pagination.number .tsi {
+  font-size: 13px;
+}
+.main-pagination .tsi-long-arrow-left:before {
+  content: "";
+}
+.main-pagination .tsi-long-arrow-right:before {
+  content: "";
+}
+.main-pagination .page-numbers .disabled {
+  color: #b4b4b4;
+  text-decoration: line-through;
+}
+.main-pagination .page-numbers .disabled .tsi-long-arrow-left:before {
+  content: "";
+}
+.main-pagination .page-numbers .disabled .tsi-long-arrow-right:before {
+  content: "";
 }

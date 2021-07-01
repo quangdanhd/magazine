@@ -1,0 +1,113 @@
+.post-content {
+    .read-more {
+        margin-top: 35px;
+        font-family: var(--ui-font);
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        text-align: center;
+        a {
+            position: relative;
+            display: inline-block;
+            color: #161616;
+            span {
+                position: relative;
+                padding: 0 10px;
+                background: #fff;
+                z-index: 1;
+            }
+        }
+    }
+    > :last-child, .textwidget > :last-child {
+        margin-bottom: 0;
+    }
+}
+.large-post-b {
+    .read-more {
+        a {
+            padding: 13px 19px;
+            border: 1px solid #e5e5e5;
+            background: #fbfbfb;
+            color: #777;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            -webkit-font-smoothing: initial;
+            span {
+                padding: 0;
+                background: 0 0;
+            }
+            &:hover {
+                background: #000;
+                color: #fff;
+            }
+        }
+    }
+}
+.main-pagination {
+    &.number {
+        font-size: 13px;
+        color: #161616;
+        font-weight: 600;
+        letter-spacing: .01em;
+        text-align: center;
+        .page-numbers {
+            padding: 0 5px;
+            margin-right: 10px;
+        }
+        .inner {
+            display: inline-block;
+            padding: 5px 26px;
+            border: 1px solid #ebebeb;
+        }
+        .label-prev {
+            padding: 0;
+            margin-right: 18px;
+        }
+        .label-next {
+            padding: 0;
+            margin-left: 8px;
+            .tsi {
+                color: #acacac;
+                margin: 0 0 0 8px;
+            }
+        }
+        .page-numbers, .main-pagination.number a {
+            display: inline-block;
+            line-height: 30px;
+        }
+        .current {
+            color: var(--main-color);
+        }
+        .page-numbers {
+            padding: 0 5px;
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        .tsi {
+            font-size: 13px;
+        }
+    }
+    .tsi-long-arrow-left:before {
+        content: "\f177";
+    }
+    .tsi-long-arrow-right:before {
+        content: "\f178";
+    }
+    .page-numbers .disabled {
+        color: #b4b4b4;
+        text-decoration: line-through;
+        .tsi-long-arrow-left:before {
+            content: '';
+        }
+        .tsi-long-arrow-right:before {
+            content: '';
+        }
+    }
+}
+

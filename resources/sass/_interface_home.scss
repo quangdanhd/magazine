@@ -3385,7 +3385,8 @@ body {
     margin-right: 2px;
     font-style: italic;
 }
-.large-post-b .post-footer .author a {
+.large-post-b .post-footer .author a,
+.large-post-b .post-footer .author .author {
     color: var(--main-color);
     font-family: var(--ui-font);
     font-weight: 600;

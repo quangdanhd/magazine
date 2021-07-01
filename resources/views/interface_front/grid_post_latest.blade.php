@@ -20,9 +20,9 @@
                     <span title="Posts by Shane Doe" rel="author" class="author">Admin</span>
                 </span>
                 <span class="meta-sep"></span>
-                <a href="#" class="meta-item date-link">
+                <span class="meta-item date-link">
                     <time class="post-date">{{date('F d, Y', strtotime($item['created_at']))}}</time>
-                </a>
+                </span>
             </div>
         </div>
     </div>

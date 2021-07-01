@@ -130,14 +130,7 @@ class HomeController extends ControllerUsers
                 $obj['detail'] = $news;
                 // $this->view_node($news->id);
                 // Latest
-                $latest_db = (new news)->getCachedNewsLatest()->toArray();
-                $latest = [];
-                foreach ($latest_db as $key => $value) {
-                    $arr = (array)$value;
-                    $arr['image'] = $this->replace_image_size($arr['image']);
-                    $latest[] = $arr;
-                }
-                $obj['latest'] = $latest;
+                $obj['latest'] = $this->news_latest();
                 // Category
                 $obj['category'] = $this->all_category_data();
                 // Related
@@ -169,10 +162,13 @@ class HomeController extends ControllerUsers
         if ($category) {
             $obj['title'] = ucfirst($url);
             // List
-            $take = 20;
-            $list = DB::table('news')->select('id', 'title', 'describe', 'image', 'url')->where('category_id', $category->id)->where('publish', 1)->paginate($take);
+            $take = 10;
+            $list = DB::table('news')->select('id', 'title', 'describe', 'image', 'url', 'created_at')->where('category_id', $category->id)->where('publish', 1)->paginate($take);
             $obj['list'] = $list;
-            // $this->aside_data($obj, $category->id);
+            // Latest
+            $obj['latest'] = $this->news_latest();
+            // Category
+            $obj['category'] = $this->all_category_data();
             return view('category')->with('obj', $obj);
         }
         $obj['title'] = '404 | Not Found';
@@ -208,5 +204,16 @@ class HomeController extends ControllerUsers
     public function replace_image_size($img)
     {
         return str_replace('news_450x300', 'news', $img);
+    }
+
+    public function news_latest()
+    {
+        $latest_db = (new news)->getCachedNewsLatest()->toArray();
+        $latest = [];
+        foreach ($latest_db as $key => $value) {
+            $arr = (array)$value;
+            $latest[] = $arr;
+        }
+        return $latest;
     }
 }

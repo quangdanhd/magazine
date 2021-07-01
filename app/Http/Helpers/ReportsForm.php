@@ -135,6 +135,9 @@ function reports_form_edit_data($id, $data)
     reports_form_before($data);
     $record = DB::table($data['table_name'])->where($data['primaryKey'], $id)->first();
     $record = (array)$record;
+    if (!$record) {
+        abort(404);
+    }
     // join
     $data_join = [];
     if ($data['field_join']) {

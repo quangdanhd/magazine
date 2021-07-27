@@ -170,4 +170,45 @@ class MainMenuController extends Controller
         }
         return $errors;
     }
+
+    public function menu_order()
+    {
+        $request = request()->all();
+        $id = isset($request['id']) ? $request['id'] : '';
+        $order = isset($request['order']) ? $request['order'] : '';
+        $menu = DB::table('main_menu')->select('order', 'parent_id')->where('id', $id)->first();
+        if ($menu) {
+            $menu = ((array)$menu);
+            $parent_id = $menu['parent_id'];
+            $order_menu = $menu['order'];
+            $order_to = $menu['order'];
+            $order_replace = $menu['order'];
+            if ($order == 'up' || $order == 'down') {
+                // Up
+                if ($order == 'up') {
+                    $order_to--;
+                    if ($order_to < 0) {
+                        $order_to = 0;
+                    }
+                    $order_replace = $order_to + 1;
+                }
+                // Down
+                if ($order == 'down') {
+                    $order_to = DB::table('main_menu')->select('id')->where('parent_id', $parent_id)->where('order', '<=', $order_menu)->count();
+                    $count_all = DB::table('main_menu')->select('id')->where('parent_id', $parent_id)->count();
+                    if ($order_to > $count_all - 1) {
+                        $order_to = $count_all - 1;
+                    }
+                    $order_replace = $order_to - 1;
+                }
+                DB::table('main_menu')->where('parent_id', $parent_id)->where('order', $order_to)->update(['order' => $order_replace]);
+                (new \App\Models\main_menu)->find($id)->update(['order' => $order_to]);
+                return [
+                    'status' => 'success',
+                    'message' => 'Sắp xếp menu thành công!',
+                ];
+            }
+        }
+        return '';
+    }
 }

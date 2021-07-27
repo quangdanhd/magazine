@@ -2724,6 +2724,9 @@ __webpack_require__.r(__webpack_exports__);
     closeError: function closeError() {
       this.error = '';
     },
+    hasData: function hasData() {
+      return this.newData.length > 0 || Object.keys(this.updateData).length > 0;
+    },
     changeLinkType: function changeLinkType(event, key) {
       var type = event.target.value;
 
@@ -2789,6 +2792,36 @@ __webpack_require__.r(__webpack_exports__);
         form.addClass('was-validated');
         this.error = 'Thông tin dữ liệu nhập chưa chính xác hoặc không được phép để trống. Vui lòng kiểm tra lại!';
       }
+    },
+    orderMenu: function orderMenu(id, key) {
+      var _this2 = this;
+
+      this.formSubmit = true;
+      this.message = '';
+      this.error = '';
+      axios.post('menu-order', {
+        id: id,
+        order: key
+      }).then(function (response) {
+        if (response.data['status'] === 'success') {
+          var message = response.data['message'];
+          axios.get('menu-manage').then(function (response) {
+            _this2.initData(response.data);
+
+            _this2.message = message;
+            _this2.formSubmit = false;
+          })["catch"](function (error) {
+            _this2.error = error.response.data.message;
+            _this2.formSubmit = false;
+          });
+        } else {
+          _this2.error = response.data['message'];
+          _this2.formSubmit = false;
+        }
+      })["catch"](function (error) {
+        _this2.error = error.response.data.message;
+        _this2.formSubmit = false;
+      });
     }
   }
 });
@@ -49607,7 +49640,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm.newData.length > 0 || Object.keys(_vm.updateData).length > 0
+              _vm.hasData()
                 ? _c(
                     "button",
                     {
@@ -50046,9 +50079,55 @@ var render = function() {
                                 "td",
                                 { staticClass: "text-center menu-action" },
                                 [
-                                  _vm._m(2, true),
+                                  !_vm.hasData()
+                                    ? _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-sm btn-secondary",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.orderMenu(
+                                                item["id"],
+                                                "up"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-arrow-circle-up"
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
-                                  _vm._m(3, true),
+                                  !_vm.hasData()
+                                    ? _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-sm btn-secondary",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.orderMenu(
+                                                item["id"],
+                                                "down"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-arrow-circle-down"
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c(
                                     "button",
@@ -50561,26 +50640,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-sm btn-secondary", attrs: { type: "button" } },
-      [_c("i", { staticClass: "fas fa-arrow-circle-up" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-sm btn-secondary", attrs: { type: "button" } },
-      [_c("i", { staticClass: "fas fa-arrow-circle-down" })]
-    )
   }
 ]
 render._withStripped = true

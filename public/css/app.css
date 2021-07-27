@@ -17219,6 +17219,10 @@ header {
   float: right;
 }
 
+.btn:focus {
+  box-shadow: none;
+}
+
 .table-indent th, .table-indent td {
   vertical-align: middle;
 }

@@ -38,13 +38,5 @@ class main_menu extends Model implements Authenticatable
                 }
             }
         });
-        self::updating(function ($model) {
-            $dirty = $model->getDirty();
-            $new_data = $dirty['parent_id'];
-            $old_data = $model->getOriginal('parent_id');
-            if ($old_data != $new_data) {
-                $model->parent_id = $old_data;
-            }
-        });
     }
 }

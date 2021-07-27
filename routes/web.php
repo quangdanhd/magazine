@@ -23,7 +23,7 @@ Route::group(['namespace' => 'DataSearch'], function () {
 });
 // Admin
 Route::group(['namespace' => 'Admin'], function () {
-    Route::get('/admin', [HomeController::class, 'index'])->name('home');
+    Route::get('admin', [HomeController::class, 'index'])->name('home');
     // News
     Route::resource('news-manage', '\App\Http\Controllers\Admin\NewsController', [
         'only' => ['index', 'create', 'store', 'edit', 'update']
@@ -33,16 +33,17 @@ Route::group(['namespace' => 'Admin'], function () {
         'only' => ['index', 'create', 'store', 'edit', 'update']
     ]);
     // Home layouts
-    Route::any('/home-layouts', [HomeLayoutsController::class, 'index']);
+    Route::any('home-layouts', [HomeLayoutsController::class, 'index']);
     // Main menu
-    Route::get('/menu-manage', [MainMenuController::class, 'index']);
-    Route::post('/menu-save', [MainMenuController::class, 'menu_save']);
+    Route::get('menu-manage', [MainMenuController::class, 'index']);
+    Route::post('menu-save', [MainMenuController::class, 'menu_save']);
+    Route::post('menu-order', [MainMenuController::class, 'menu_order']);
     // User
     //Route::resource('users', '\App\Http\Controllers\UserController', [
     //    'only' => ['index', 'create', 'store', 'edit', 'update']
     //]);
     // generate_sample_data
-    Route::get('/generate-sample-data', [NewsController::class, 'generate']);
+    Route::get('generate-sample-data', [NewsController::class, 'generate']);
     // Get news form url ***
     //    Route::post('get-news-from-url', [GetNewsController::class, 'create_news']);
     //    Route::get('get-news-category', [GetNewsController::class, 'category']);
@@ -50,9 +51,9 @@ Route::group(['namespace' => 'Admin'], function () {
 // Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 // Latest Pagination
-Route::get('/latest-pagination', [App\Http\Controllers\HomeController::class, 'latest_pagination']);
+Route::get('latest-pagination', [App\Http\Controllers\HomeController::class, 'latest_pagination']);
 
 // Category
-Route::get('/category/{url}', [App\Http\Controllers\HomeController::class, 'category']);
+Route::get('category/{url}', [App\Http\Controllers\HomeController::class, 'category']);
 // News View
-Route::get('/{url}', [App\Http\Controllers\HomeController::class, 'show']);
+Route::get('{url}', [App\Http\Controllers\HomeController::class, 'show']);

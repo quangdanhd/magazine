@@ -25,7 +25,7 @@
                             <i class="fas fa-plus-circle"></i>
                             <span>Add new</span>
                         </button>
-                        <button v-if="newData.length > 0 || Object.keys(updateData).length > 0" type="submit" class="btn btn-sm btn-outline-primary">
+                        <button v-if="hasData()" type="submit" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-save"></i>
                             <span>Save</span>
                         </button>
@@ -114,10 +114,10 @@
                                 <span v-if="!!item['active']"><i class="far fa-check-circle"></i></span>
                             </td>
                             <td class="text-center menu-action">
-                                <button type="button" class="btn btn-sm btn-secondary">
+                                <button v-if="!hasData()" @click="orderMenu(item['id'], 'up')" type="button" class="btn btn-sm btn-secondary">
                                     <i class="fas fa-arrow-circle-up"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-secondary">
+                                <button v-if="!hasData()" @click="orderMenu(item['id'], 'down')" type="button" class="btn btn-sm btn-secondary">
                                     <i class="fas fa-arrow-circle-down"></i>
                                 </button>
                                 <button @click="addMenu(item['id'])" type="button" class="btn btn-sm btn-secondary" :disabled="item['indent'] >= parentDeep">
@@ -216,6 +216,9 @@
             closeError() {
                 this.error = '';
             },
+            hasData() {
+                return this.newData.length > 0 || Object.keys(this.updateData).length > 0;
+            },
             changeLinkType(event, key) {
                 let type = event.target.value;
                 if (type.toString() === '2') {
@@ -276,6 +279,33 @@
                     form.addClass('was-validated');
                     this.error = 'Thông tin dữ liệu nhập chưa chính xác hoặc không được phép để trống. Vui lòng kiểm tra lại!';
                 }
+            },
+            orderMenu(id, key) {
+                this.formSubmit = true;
+                this.message = '';
+                this.error = '';
+                axios.post('menu-order', {
+                    id: id,
+                    order: key,
+                }).then(response => {
+                    if (response.data['status'] === 'success') {
+                        let message = response.data['message'];
+                        axios.get('menu-manage').then(response => {
+                            this.initData(response.data);
+                            this.message = message;
+                            this.formSubmit = false;
+                        }).catch(error => {
+                            this.error = error.response.data.message;
+                            this.formSubmit = false;
+                        });
+                    } else {
+                        this.error = response.data['message'];
+                        this.formSubmit = false;
+                    }
+                }).catch(error => {
+                    this.error = error.response.data.message;
+                    this.formSubmit = false;
+                })
             },
         }
     }

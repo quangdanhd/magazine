@@ -19,7 +19,7 @@ class HomeController extends ControllerUsers
         $positions = config('constants.home_positions');
         $position_keys = array_keys($positions);
         // Category
-        $obj['category'] = $this->all_category_data();;
+        $obj['category'] = $this->all_category_data();
         // Layouts
         $layout_db = (new home_layouts)->getCachedHomeLayouts()->toArray();
         $layout_category = [];

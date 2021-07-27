@@ -17218,3 +17218,41 @@ header {
 .align-right {
   float: right;
 }
+
+.table-indent th, .table-indent td {
+  vertical-align: middle;
+}
+.table-indent .indent-1 {
+  padding-left: 25px;
+}
+.table-indent .indent-2 {
+  padding-left: 50px;
+}
+.table-indent .indent-3 {
+  padding-left: 75px;
+}
+.table-indent .indent-4 {
+  padding-left: 100px;
+}
+.table-indent .indent-5 {
+  padding-left: 125px;
+}
+.table-indent .fa-check-circle {
+  font-size: 17px;
+}
+.table-indent .menu-action .btn-secondary {
+  background-color: transparent;
+  border-color: transparent;
+  color: #6c757d;
+}
+.table-indent .menu-action .btn-secondary:hover {
+  color: #fff;
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+.table-indent .menu-action .btn-secondary:disabled {
+  opacity: 0;
+}
+.table-indent .menu-action i {
+  font-size: 17px;
+}

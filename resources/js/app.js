@@ -29,6 +29,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 // admin
 Vue.component('chart-home', require('./components/admin/ChartHome.vue').default);
 Vue.component('home-layouts', require('./components/admin/HomeLayouts.vue').default);
+Vue.component('menu-manage', require('./components/admin/MenuManage.vue').default);
 
 window.onload = function () {
     if (document.getElementById('app')) {

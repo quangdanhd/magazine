@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GetNewsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\HomeLayoutsController;
+use App\Http\Controllers\Admin\MainMenuController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DataSearch\DataFormIndexSearch;
@@ -33,6 +34,9 @@ Route::group(['namespace' => 'Admin'], function () {
     ]);
     // Home layouts
     Route::any('/home-layouts', [HomeLayoutsController::class, 'index']);
+    // Main menu
+    Route::get('/menu-manage', [MainMenuController::class, 'index']);
+    Route::post('/menu-save', [MainMenuController::class, 'menu_save']);
     // User
     //Route::resource('users', '\App\Http\Controllers\UserController', [
     //    'only' => ['index', 'create', 'store', 'edit', 'update']
@@ -40,8 +44,8 @@ Route::group(['namespace' => 'Admin'], function () {
     // generate_sample_data
     Route::get('/generate-sample-data', [NewsController::class, 'generate']);
     // Get news form url ***
-    Route::post('get-news-from-url', [GetNewsController::class, 'create_news']);
-    Route::get('get-news-category', [GetNewsController::class, 'category']);
+    //    Route::post('get-news-from-url', [GetNewsController::class, 'create_news']);
+    //    Route::get('get-news-category', [GetNewsController::class, 'category']);
 });
 // Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);

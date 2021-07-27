@@ -21,6 +21,10 @@ return [
                     'link' => '/category-manage'
                 ],
                 [
+                    'label' => 'Menu manage',
+                    'link' => '/menu-manage'
+                ],
+                [
                     'label' => 'Home Layouts',
                     'link' => '/home-layouts'
                 ],

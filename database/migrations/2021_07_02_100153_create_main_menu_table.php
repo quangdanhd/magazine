@@ -13,6 +13,7 @@ class CreateMainMenuTable extends Migration
             $table->string('title', 50);
             $table->integer('parent_id')->nullable();
             $table->integer('order');
+            $table->integer('link_type');
             $table->integer('category_id')->nullable();
             $table->string('link', 500)->nullable();
             $table->boolean('active')->default(0);

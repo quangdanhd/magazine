@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\news_category;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 
 class MainMenuController extends Controller
@@ -21,7 +22,7 @@ class MainMenuController extends Controller
         $obj = [];
         $obj['title'] = 'Menu Manage';
         // Menu
-        $menu_db = DB::table('main_menu')->select('id', 'title', 'parent_id', 'order', 'category_id', 'link', 'active')->orderBy('order', 'asc')->orderBy('id', 'asc')->get();
+        $menu_db = DB::table('main_menu')->select('id', 'title', 'parent_id', 'order', 'link_type', 'category_id', 'link', 'active')->orderBy('order', 'asc')->orderBy('id', 'asc')->get();
         // Menu Tree
         $menu = [];
         $menu_arr = [];
@@ -113,16 +114,60 @@ class MainMenuController extends Controller
     {
         $request = request()->all();
         $new_data = isset($request['newData']) ? $request['newData'] : [];
+        $update_data = isset($request['updateData']) ? $request['updateData'] : [];
+        // Validate
+        $errors = [];
+        if ($new_data) {
+            $new_errors = $this->menu_validator($new_data);
+            $errors = array_merge($errors, $new_errors);
+        }
+        if ($update_data) {
+            $update_errors = $this->menu_validator($update_data);
+            $errors = array_merge($errors, $update_errors);
+        }
+        if ($errors) {
+            $errors = '<br>' . join('<br>', $errors);
+            return [
+                'status' => 'error',
+                'message' => $errors,
+            ];
+        }
+        // New
         foreach ($new_data as $key => $value) {
-            $data = $value;
-            $parent_id = $value['parent_id'];
-            $count = DB::table('main_menu')->select('id')->where('parent_id', $parent_id)->count();
-            $data['order'] = $count;
-            (new \App\Models\main_menu)->create($data);
+            (new \App\Models\main_menu)->create($value);
+        }
+        // Update
+        foreach ($update_data as $key => $value) {
+            (new \App\Models\main_menu)->find($value['id'])->update($value);
         }
         return [
             'status' => 'success',
             'message' => 'Lưu menu thành công!',
         ];
+    }
+
+    private function menu_validator($data)
+    {
+        $errors = [];
+        $validator = Validator::make(
+            $data,
+            [
+                '*.title' => 'required|string|max:50',
+                '*.parent_id' => 'nullable|integer',
+                '*.order' => 'nullable|integer',
+                '*.category_id' => 'nullable|integer',
+                '*.link' => 'nullable|string|max:500',
+                '*.active' => 'nullable|min:0|max:1',
+            ],
+            []
+        );
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $key => $value) {
+                foreach ($value as $k_2 => $val_2) {
+                    $errors[] = $val_2;
+                }
+            }
+        }
+        return $errors;
     }
 }

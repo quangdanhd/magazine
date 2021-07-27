@@ -25,7 +25,7 @@
                             <i class="fas fa-plus-circle"></i>
                             <span>Add new</span>
                         </button>
-                        <button v-if="newData.length > 0" type="submit" class="btn btn-sm btn-outline-primary">
+                        <button v-if="newData.length > 0 || Object.keys(updateData).length > 0" type="submit" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-save"></i>
                             <span>Save</span>
                         </button>
@@ -69,7 +69,7 @@
                             </td>
                             <td>
                                 <label class="w-100 mb-0">
-                                    <select v-model="item['parent_id']" class="form-control form-control-sm">
+                                    <select v-model="item['parent_id']" class="form-control form-control-sm" disabled>
                                         <option value>- Root -</option>
                                         <option v-for="(option, key_op) in parentSelect" :value="key_op">{{option}}</option>
                                     </select>
@@ -101,8 +101,8 @@
                         </tr>
                     </template>
                     <!--View & Edit-->
-                    <template v-for="item in viewData">
-                        <tr>
+                    <template v-for="(item, key) in viewData">
+                        <tr v-if="!(key in updateData)">
                             <td :class="'indent-' + item['indent']">
                                 <span>{{item['title']}}</span>
                             </td>
@@ -124,8 +124,52 @@
                                     <i class="fas fa-plus-circle"></i>
                                     <span>child</span>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-secondary">
+                                <button @click="editMenu(key)" type="button" class="btn btn-sm btn-secondary">
                                     <i class="far fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr v-else>
+                            <td>
+                                <label class="w-100 mb-0">
+                                    <input v-model="updateData[key]['title']" placeholder="Menu name" type="text" class="form-control form-control-sm" required>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="w-100 mb-0">
+                                    <select v-model="updateData[key]['parent_id']" class="form-control form-control-sm" disabled>
+                                        <option v-if="updateData[key]['parent_id'] === null" value="null">- Root -</option>
+                                        <option v-else value>- Root -</option>
+                                        <option v-if="key_op !== updateData[key]['id'].toString()" v-for="(option, key_op) in parentSelect" :value="key_op">{{option}}</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="w-50 mb-0 float-left pr-2">
+                                    <select @change="changeLinkType($event, key)" v-model="updateData[key]['link_type']" class="form-control form-control-sm" required>
+                                        <option value="1">Category</option>
+                                        <option value="2">Url link</option>
+                                    </select>
+                                </label>
+                                <label v-if="updateData[key]['link_type'].toString() === '1'" class="w-50 mb-0 float-left">
+                                    <select v-model="updateData[key]['category_id']" class="form-control form-control-sm" required>
+                                        <option v-if="updateData[key]['category_id'] === null" value="null">- Choose category -</option>
+                                        <option v-else value>- Choose category -</option>
+                                        <option v-for="(option, key_op) in categorySelect" :value="key_op">{{option}}</option>
+                                    </select>
+                                </label>
+                                <label v-if="updateData[key]['link_type'].toString() === '2'" class="w-50 mb-0 float-left">
+                                    <input v-model="updateData[key]['link']" placeholder="link-item" type="text" class="form-control form-control-sm" required>
+                                </label>
+                            </td>
+                            <td class="text-center">
+                                <label class="mb-0 label-checkbox">
+                                    <input v-model="updateData[key]['active']" type="checkbox">
+                                </label>
+                            </td>
+                            <td class="text-center menu-action">
+                                <button @click="cancelEdit(key)" type="button" class="btn btn-sm btn-secondary">
+                                    <i class="far fa-times-circle"></i>
                                 </button>
                             </td>
                         </tr>
@@ -150,8 +194,9 @@
                 parentSelect: [],
                 categorySelect: [],
                 categoryLink: [],
-                newData: [],
                 viewData: {},
+                newData: [],
+                updateData: {},
             }
         },
         created() {
@@ -171,6 +216,12 @@
             closeError() {
                 this.error = '';
             },
+            changeLinkType(event, key) {
+                let type = event.target.value;
+                if (type.toString() === '2') {
+                    this.newData[key]['category_id'] = '';
+                }
+            },
             addMenu(parent_id) {
                 let menu = {
                     'title': '',
@@ -182,11 +233,13 @@
                 };
                 this.newData.push(menu);
             },
-            changeLinkType(event, key) {
-                let type = event.target.value;
-                if (type.toString() === '2') {
-                    this.newData[key]['category_id'] = '';
-                }
+            editMenu(key) {
+                this.updateData[key] = this.viewData[key];
+                this.$forceUpdate();
+            },
+            cancelEdit(key) {
+                delete this.updateData[key];
+                this.$forceUpdate();
             },
             submitData(e) {
                 e.preventDefault();
@@ -197,9 +250,11 @@
                     this.error = '';
                     axios.post('menu-save', {
                         newData: this.newData,
+                        updateData: this.updateData,
                     }).then(response => {
                         if (response.data['status'] === 'success') {
                             this.newData = [];
+                            this.updateData = {};
                             let message = response.data['message'];
                             axios.get('menu-manage').then(response => {
                                 this.initData(response.data);
@@ -210,6 +265,7 @@
                                 this.formSubmit = false;
                             });
                         } else {
+                            this.error = response.data['message'];
                             this.formSubmit = false;
                         }
                     }).catch(error => {

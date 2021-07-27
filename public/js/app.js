@@ -2647,6 +2647,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['obj'],
   data: function data() {
@@ -2658,8 +2702,9 @@ __webpack_require__.r(__webpack_exports__);
       parentSelect: [],
       categorySelect: [],
       categoryLink: [],
+      viewData: {},
       newData: [],
-      viewData: {}
+      updateData: {}
     };
   },
   created: function created() {
@@ -2679,6 +2724,13 @@ __webpack_require__.r(__webpack_exports__);
     closeError: function closeError() {
       this.error = '';
     },
+    changeLinkType: function changeLinkType(event, key) {
+      var type = event.target.value;
+
+      if (type.toString() === '2') {
+        this.newData[key]['category_id'] = '';
+      }
+    },
     addMenu: function addMenu(parent_id) {
       var menu = {
         'title': '',
@@ -2690,12 +2742,13 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.newData.push(menu);
     },
-    changeLinkType: function changeLinkType(event, key) {
-      var type = event.target.value;
-
-      if (type.toString() === '2') {
-        this.newData[key]['category_id'] = '';
-      }
+    editMenu: function editMenu(key) {
+      this.updateData[key] = this.viewData[key];
+      this.$forceUpdate();
+    },
+    cancelEdit: function cancelEdit(key) {
+      delete this.updateData[key];
+      this.$forceUpdate();
     },
     submitData: function submitData(e) {
       var _this = this;
@@ -2708,10 +2761,12 @@ __webpack_require__.r(__webpack_exports__);
         this.message = '';
         this.error = '';
         axios.post('menu-save', {
-          newData: this.newData
+          newData: this.newData,
+          updateData: this.updateData
         }).then(function (response) {
           if (response.data['status'] === 'success') {
             _this.newData = [];
+            _this.updateData = {};
             var message = response.data['message'];
             axios.get('menu-manage').then(function (response) {
               _this.initData(response.data);
@@ -2723,6 +2778,7 @@ __webpack_require__.r(__webpack_exports__);
               _this.formSubmit = false;
             });
           } else {
+            _this.error = response.data['message'];
             _this.formSubmit = false;
           }
         })["catch"](function (error) {
@@ -49551,7 +49607,7 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm.newData.length > 0
+              _vm.newData.length > 0 || Object.keys(_vm.updateData).length > 0
                 ? _c(
                     "button",
                     {
@@ -49684,6 +49740,7 @@ var render = function() {
                                     }
                                   ],
                                   staticClass: "form-control form-control-sm",
+                                  attrs: { disabled: "" },
                                   on: {
                                     change: function($event) {
                                       var $$selectedVal = Array.prototype.filter
@@ -49957,62 +50014,492 @@ var render = function() {
                       ]
                     }),
                     _vm._v(" "),
-                    _vm._l(_vm.viewData, function(item) {
+                    _vm._l(_vm.viewData, function(item, key) {
                       return [
-                        _c("tr", [
-                          _c("td", { class: "indent-" + item["indent"] }, [
-                            _c("span", [_vm._v(_vm._s(item["title"]))])
-                          ]),
-                          _vm._v(" "),
-                          _c("td"),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", [_vm._v(_vm._s(item["link"]))])
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            { staticClass: "text-success text-center" },
-                            [
-                              !!item["active"]
-                                ? _c("span", [
-                                    _c("i", {
-                                      staticClass: "far fa-check-circle"
-                                    })
-                                  ])
-                                : _vm._e()
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center menu-action" }, [
-                            _vm._m(2, true),
-                            _vm._v(" "),
-                            _vm._m(3, true),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-secondary",
-                                attrs: {
-                                  type: "button",
-                                  disabled: item["indent"] >= _vm.parentDeep
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.addMenu(item["id"])
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", { staticClass: "fas fa-plus-circle" }),
+                        !(key in _vm.updateData)
+                          ? _c("tr", [
+                              _c("td", { class: "indent-" + item["indent"] }, [
+                                _c("span", [_vm._v(_vm._s(item["title"]))])
+                              ]),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("span", [_vm._v(_vm._s(item["link"]))])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "text-success text-center" },
+                                [
+                                  !!item["active"]
+                                    ? _c("span", [
+                                        _c("i", {
+                                          staticClass: "far fa-check-circle"
+                                        })
+                                      ])
+                                    : _vm._e()
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "text-center menu-action" },
+                                [
+                                  _vm._m(2, true),
+                                  _vm._v(" "),
+                                  _vm._m(3, true),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-sm btn-secondary",
+                                      attrs: {
+                                        type: "button",
+                                        disabled:
+                                          item["indent"] >= _vm.parentDeep
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.addMenu(item["id"])
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-plus-circle"
+                                      }),
+                                      _vm._v(" "),
+                                      _c("span", [_vm._v("child")])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-sm btn-secondary",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editMenu(key)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "far fa-edit" })]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _c("tr", [
+                              _c("td", [
+                                _c("label", { staticClass: "w-100 mb-0" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.updateData[key]["title"],
+                                        expression: "updateData[key]['title']"
+                                      }
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    attrs: {
+                                      placeholder: "Menu name",
+                                      type: "text",
+                                      required: ""
+                                    },
+                                    domProps: {
+                                      value: _vm.updateData[key]["title"]
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.updateData[key],
+                                          "title",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c("label", { staticClass: "w-100 mb-0" }, [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value:
+                                            _vm.updateData[key]["parent_id"],
+                                          expression:
+                                            "updateData[key]['parent_id']"
+                                        }
+                                      ],
+                                      staticClass:
+                                        "form-control form-control-sm",
+                                      attrs: { disabled: "" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.updateData[key],
+                                            "parent_id",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm.updateData[key]["parent_id"] === null
+                                        ? _c(
+                                            "option",
+                                            { attrs: { value: "null" } },
+                                            [_vm._v("- Root -")]
+                                          )
+                                        : _c(
+                                            "option",
+                                            { attrs: { value: "" } },
+                                            [_vm._v("- Root -")]
+                                          ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.parentSelect, function(
+                                        option,
+                                        key_op
+                                      ) {
+                                        return key_op !==
+                                          _vm.updateData[key]["id"].toString()
+                                          ? _c(
+                                              "option",
+                                              { domProps: { value: key_op } },
+                                              [_vm._v(_vm._s(option))]
+                                            )
+                                          : _vm._e()
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "label",
+                                  { staticClass: "w-50 mb-0 float-left pr-2" },
+                                  [
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value:
+                                              _vm.updateData[key]["link_type"],
+                                            expression:
+                                              "updateData[key]['link_type']"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "form-control form-control-sm",
+                                        attrs: { required: "" },
+                                        on: {
+                                          change: [
+                                            function($event) {
+                                              var $$selectedVal = Array.prototype.filter
+                                                .call(
+                                                  $event.target.options,
+                                                  function(o) {
+                                                    return o.selected
+                                                  }
+                                                )
+                                                .map(function(o) {
+                                                  var val =
+                                                    "_value" in o
+                                                      ? o._value
+                                                      : o.value
+                                                  return val
+                                                })
+                                              _vm.$set(
+                                                _vm.updateData[key],
+                                                "link_type",
+                                                $event.target.multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              )
+                                            },
+                                            function($event) {
+                                              return _vm.changeLinkType(
+                                                $event,
+                                                key
+                                              )
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "1" } },
+                                          [_vm._v("Category")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "option",
+                                          { attrs: { value: "2" } },
+                                          [_vm._v("Url link")]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                ),
                                 _vm._v(" "),
-                                _c("span", [_vm._v("child")])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(4, true)
-                          ])
-                        ])
+                                _vm.updateData[key]["link_type"].toString() ===
+                                "1"
+                                  ? _c(
+                                      "label",
+                                      { staticClass: "w-50 mb-0 float-left" },
+                                      [
+                                        _c(
+                                          "select",
+                                          {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.updateData[key][
+                                                    "category_id"
+                                                  ],
+                                                expression:
+                                                  "updateData[key]['category_id']"
+                                              }
+                                            ],
+                                            staticClass:
+                                              "form-control form-control-sm",
+                                            attrs: { required: "" },
+                                            on: {
+                                              change: function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  _vm.updateData[key],
+                                                  "category_id",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm.updateData[key][
+                                              "category_id"
+                                            ] === null
+                                              ? _c(
+                                                  "option",
+                                                  { attrs: { value: "null" } },
+                                                  [
+                                                    _vm._v(
+                                                      "- Choose category -"
+                                                    )
+                                                  ]
+                                                )
+                                              : _c(
+                                                  "option",
+                                                  { attrs: { value: "" } },
+                                                  [
+                                                    _vm._v(
+                                                      "- Choose category -"
+                                                    )
+                                                  ]
+                                                ),
+                                            _vm._v(" "),
+                                            _vm._l(_vm.categorySelect, function(
+                                              option,
+                                              key_op
+                                            ) {
+                                              return _c(
+                                                "option",
+                                                { domProps: { value: key_op } },
+                                                [_vm._v(_vm._s(option))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.updateData[key]["link_type"].toString() ===
+                                "2"
+                                  ? _c(
+                                      "label",
+                                      { staticClass: "w-50 mb-0 float-left" },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.updateData[key]["link"],
+                                              expression:
+                                                "updateData[key]['link']"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "form-control form-control-sm",
+                                          attrs: {
+                                            placeholder: "link-item",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          domProps: {
+                                            value: _vm.updateData[key]["link"]
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.updateData[key],
+                                                "link",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _c(
+                                  "label",
+                                  { staticClass: "mb-0 label-checkbox" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.updateData[key]["active"],
+                                          expression:
+                                            "updateData[key]['active']"
+                                        }
+                                      ],
+                                      attrs: { type: "checkbox" },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.updateData[key]["active"]
+                                        )
+                                          ? _vm._i(
+                                              _vm.updateData[key]["active"],
+                                              null
+                                            ) > -1
+                                          : _vm.updateData[key]["active"]
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a =
+                                              _vm.updateData[key]["active"],
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.updateData[key],
+                                                  "active",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.updateData[key],
+                                                  "active",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(
+                                              _vm.updateData[key],
+                                              "active",
+                                              $$c
+                                            )
+                                          }
+                                        }
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "text-center menu-action" },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-sm btn-secondary",
+                                      attrs: { type: "button" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.cancelEdit(key)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "far fa-times-circle"
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
                       ]
                     })
                   ],
@@ -50093,16 +50580,6 @@ var staticRenderFns = [
       "button",
       { staticClass: "btn btn-sm btn-secondary", attrs: { type: "button" } },
       [_c("i", { staticClass: "fas fa-arrow-circle-down" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-sm btn-secondary", attrs: { type: "button" } },
-      [_c("i", { staticClass: "far fa-edit" })]
     )
   }
 ]

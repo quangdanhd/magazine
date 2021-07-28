@@ -50170,7 +50170,7 @@ var render = function() {
                               )
                             ])
                           : _c("tr", [
-                              _c("td", [
+                              _c("td", { class: "indent-" + item["indent"] }, [
                                 _c("label", { staticClass: "w-100 mb-0" }, [
                                   _c("input", {
                                     directives: [

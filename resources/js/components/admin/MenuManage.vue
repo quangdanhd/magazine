@@ -130,7 +130,7 @@
                             </td>
                         </tr>
                         <tr v-else>
-                            <td>
+                            <td :class="'indent-' + item['indent']">
                                 <label class="w-100 mb-0">
                                     <input v-model="updateData[key]['title']" placeholder="Menu name" type="text" class="form-control form-control-sm" required>
                                 </label>

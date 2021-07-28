@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\home_layouts;
+use App\Models\main_menu;
 use App\Models\news;
 use App\Models\news_category;
-use App\Models\news_view;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +13,8 @@ class HomeController extends ControllerUsers
 {
     public function index()
     {
-        // $obj = menu_category();
+        $obj = [];
+        $obj['menu'] = (new main_menu)->getCachedMenu();
         $obj['title'] = 'Magazine';
         // Positions
         $positions = config('constants.home_positions');
@@ -112,9 +113,9 @@ class HomeController extends ControllerUsers
     public function show($url)
     {
         $obj = [];
+        $obj['menu'] = (new main_menu)->getCachedMenu();
         $cache_keys = 'news-show-data-cached';
         $cache_items = 10;
-        // $obj = menu_category();
         $data_cached = Cache::get($cache_keys);
         if ($data_cached == null) {
             $cache = [];
@@ -128,7 +129,7 @@ class HomeController extends ControllerUsers
             if ($news) {
                 $obj['title'] = $news->title;
                 $obj['detail'] = $news;
-                // $this->view_node($news->id);
+                $this->view_node($news->id);
                 // Latest
                 $obj['latest'] = $this->news_latest();
                 // Category
@@ -157,7 +158,8 @@ class HomeController extends ControllerUsers
 
     public function category($url)
     {
-        $obj = menu_category();
+        $obj = [];
+        $obj['menu'] = (new main_menu)->getCachedMenu();
         $category = DB::table('news_category')->select('id')->where('name', $url)->first();
         if ($category) {
             $obj['title'] = ucfirst($url);
@@ -181,7 +183,7 @@ class HomeController extends ControllerUsers
         $uniqueID = session_uniqueID();
         $view = DB::table('news_view')->select('id')->where('news_id', $news_id)->where('unknown_token', $uniqueID)->first();
         if (!$view) {
-            news_view::create([
+            (new \App\Models\news_view)->create([
                 'news_id' => $news_id,
                 'unknown_token' => $uniqueID,
             ]);

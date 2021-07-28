@@ -31,21 +31,9 @@ function get_db_column_type($table)
     return;
 }
 
-function get_top_news()
-{
-    return DB::table('news')->where('publish', 1)->orderBy('views', 'desc');
-}
-
 function session_uniqueID()
 {
     return session_client_ip();
-    //    if (session_status() === PHP_SESSION_NONE) {
-    //        session_start();
-    //    }
-    //    if (!isset($_SESSION['uniqueID'])) {
-    //        $_SESSION['uniqueID'] = uniqid('', true) . '-' . time();
-    //    }
-    //    return $_SESSION['uniqueID'];
 }
 
 function session_client_ip()
@@ -58,15 +46,6 @@ function session_client_ip()
         $ip = $_SERVER['REMOTE_ADDR'];
     }
     return $ip;
-}
-
-function menu_category()
-{
-    // Category
-    $category_db = DB::table('news_category')->select('id', 'name')->orderBy('id', 'asc')->pluck('name', 'id')->toArray();
-    $obj['category'] = $category_db;
-    $obj['category_show'] = 9;
-    return $obj;
 }
 
 function generate_sample_data()

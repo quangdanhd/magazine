@@ -37,6 +37,25 @@ class main_menu extends Model implements Authenticatable
                     $model->link = ((array)$category)['url'];
                 }
             }
+            Cache::forget('menu-data-cached');
         });
+    }
+
+    private function getMenuActive()
+    {
+        return $this->all('id', 'title', 'parent_id', 'order', 'link', 'active')->where('active', 1)->sortBy('order')->sortBy('id');
+    }
+
+    public function getCachedMenu()
+    {
+        $cache_key = 'menu-data-cached';
+        $menu_cached = Cache::get($cache_key);
+        if ($menu_cached == null) {
+            $menu_db = $this->getMenuActive()->toArray();
+            $menu = (new \App\Http\Controllers\Admin\MainMenuController)->make_menu_tree($menu_db);
+            Cache::put($cache_key, $menu);
+            $menu_cached = Cache::get($cache_key);
+        }
+        return $menu_cached;
     }
 }

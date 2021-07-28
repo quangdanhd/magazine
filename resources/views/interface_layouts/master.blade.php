@@ -18,7 +18,7 @@
     @yield('content')
     @include('interface_layouts.footer')
 </div>
-@include('interface_layouts.mobile_menu')
+@include('interface_layouts.menu_mobile')
 <script src="{{ mix('/js/app_interface.js') }}"></script>
 @yield('scripts')
 </body>

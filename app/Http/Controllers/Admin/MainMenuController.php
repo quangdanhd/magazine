@@ -24,24 +24,7 @@ class MainMenuController extends Controller
         // Menu
         $menu_db = DB::table('main_menu')->select('id', 'title', 'parent_id', 'order', 'link_type', 'category_id', 'link', 'active')->orderBy('order', 'asc')->orderBy('id', 'asc')->get();
         // Menu Tree
-        $menu = [];
-        $menu_arr = [];
-        if (!$menu_db->isEmpty()) {
-            foreach ($menu_db as $key => $value) {
-                $menu_arr[((array)$value)['id']] = (array)$value;
-            }
-            $menu_arr_2 = $menu_arr;
-            // Root
-            foreach ($menu_arr as $key => $value) {
-                if (!$value['parent_id']) {
-                    $menu[$value['id']] = $value;
-                    unset($menu_arr_2[$key]);
-                }
-            }
-            foreach ($menu as $key => $value) {
-                $this->menu_tree($menu[$key], $menu_arr_2);
-            }
-        }
+        $menu = $this->make_menu_tree($menu_db);
         // Menu Indent
         $menu_indent = $this->menu_indent($menu);
         $obj['menu'] = $menu_indent['new_menu'];
@@ -59,6 +42,27 @@ class MainMenuController extends Controller
         } else {
             return View::make('admin/menu_manage')->with('obj', $obj);
         }
+    }
+
+    public function make_menu_tree($menu_db)
+    {
+        $menu = [];
+        $menu_arr = [];
+        foreach ($menu_db as $key => $value) {
+            $menu_arr[((array)$value)['id']] = (array)$value;
+        }
+        $menu_arr_2 = $menu_arr;
+        // Root
+        foreach ($menu_arr as $key => $value) {
+            if (!$value['parent_id']) {
+                $menu[$value['id']] = $value;
+                unset($menu_arr_2[$key]);
+            }
+        }
+        foreach ($menu as $key => $value) {
+            $this->menu_tree($menu[$key], $menu_arr_2);
+        }
+        return $menu;
     }
 
     private function menu_tree(&$tree_child, &$menu_arr_2)

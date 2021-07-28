@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
-    public function data_config()
+    private function data_config()
     {
         $obj['title'] = 'Trang chủ admin';
         // Chart 1
@@ -59,7 +60,7 @@ class HomeController extends Controller
         return View::make('admin/home')->with('obj', $obj);
     }
 
-    function chart_data($data)
+    private function chart_data($data)
     {
         $obj = $data;
         $obj['url'] = '/' . Route::getFacadeRoot()->current()->uri();
@@ -130,5 +131,12 @@ class HomeController extends Controller
         //    return $data;
         //}
         return $obj;
+    }
+
+    public function flush_cache()
+    {
+        Cache::flush();
+        $mes = 'Xóa cache thành công!';
+        return View::make('admin/view_message')->with('mes', $mes);
     }
 }

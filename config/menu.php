@@ -28,6 +28,10 @@ return [
                     'label' => 'Home Layouts',
                     'link' => '/home-layouts'
                 ],
+                [
+                    'label' => 'Flush Cache',
+                    'link' => '/flush-cache'
+                ],
             ]
         ],
         [

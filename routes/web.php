@@ -38,12 +38,14 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('menu-manage', [MainMenuController::class, 'index']);
     Route::post('menu-save', [MainMenuController::class, 'menu_save']);
     Route::post('menu-order', [MainMenuController::class, 'menu_order']);
+    // Flush Cache
+    Route::get('flush-cache', [HomeController::class, 'flush_cache']);
+    // generate_sample_data
+    Route::get('generate-sample-data', [NewsController::class, 'generate']);
     // User
     //Route::resource('users', '\App\Http\Controllers\UserController', [
     //    'only' => ['index', 'create', 'store', 'edit', 'update']
     //]);
-    // generate_sample_data
-    Route::get('generate-sample-data', [NewsController::class, 'generate']);
     // Get news form url ***
     //    Route::post('get-news-from-url', [GetNewsController::class, 'create_news']);
     //    Route::get('get-news-category', [GetNewsController::class, 'category']);

@@ -10,6 +10,9 @@
         #main {
             min-height: 70vh;
         }
+        .antialiased {
+            min-height: calc(100vh - 313px);
+        }
     </style>
     <div class="antialiased">
         <div class="relative flex items-top justify-center dark:bg-gray-900 sm:items-center sm:pt-0">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\main_menu;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -20,7 +21,7 @@ class Controller extends BaseController
         // $this->middleware('auth');
         $this->middleware(function ($request, $next) {
             if (!Auth::check()) {
-                $obj = menu_category();
+                $obj['menu'] = (new main_menu)->getCachedMenu();
                 $obj['title'] = '404 | Not Found';
                 return new response(view('errors.404_custom')->with('obj', $obj));
                 // return Redirect::to('login')->send();

@@ -34,7 +34,7 @@ class main_menu extends Model implements Authenticatable
             if ($model->category_id != '') {
                 $category = DB::table('news_category')->select('url')->where('id', $model->category_id)->first();
                 if ($category) {
-                    $model->link = ((array)$category)['url'];
+                    $model->link = 'category/' . ((array)$category)['url'];
                 }
             }
             Cache::forget('menu-data-cached');
